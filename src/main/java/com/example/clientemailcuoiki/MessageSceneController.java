@@ -30,7 +30,7 @@ public class MessageSceneController implements Initializable{
     public void connectToServer(String username) throws IOException {
         Socket socket = new Socket("localhost", 1234);
         Client client = new Client(socket, username, socket.getRemoteSocketAddress().toString());
-        sendMessageButton(client);
+//        sendMessageButton(client);
 
     }
 
