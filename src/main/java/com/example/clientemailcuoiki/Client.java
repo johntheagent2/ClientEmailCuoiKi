@@ -25,7 +25,7 @@ public class Client {
         }
     }
 
-    public void sendMessage(){
+    public void sendMessage(String messageToSend){
         try{
             bufferedWriter.write(username);
             bufferedWriter.newLine();
@@ -34,7 +34,7 @@ public class Client {
             Scanner sc = new Scanner(System.in);
 
             while(socket.isConnected()){
-                String messageToSend = sc.nextLine();
+//                String messageToSend = sc.nextLine();
                 bufferedWriter.write("[" + username+ "-" + ipAddress + "]" + ": " + messageToSend);
                 bufferedWriter.newLine();
                 bufferedWriter.flush();
@@ -44,23 +44,23 @@ public class Client {
         }
     }
 
-    public void listenForMessage(){
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                String messageFromGrpChat;
-
-                while(socket.isConnected()){
-                    try{
-                        messageFromGrpChat = bufferedReader.readLine();
-                        System.out.println(messageFromGrpChat);
-                    }catch (IOException e){
-                        closeEverything(socket,bufferedWriter, bufferedReader);
-                    }
-                }
-            }
-        }).start();
-    }
+//    public void listenForMessage(){
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                String messageFromGrpChat;
+//
+//                while(socket.isConnected()){
+//                    try{
+//                        messageFromGrpChat = bufferedReader.readLine();
+//                        System.out.println(messageFromGrpChat);
+//                    }catch (IOException e){
+//                        closeEverything(socket,bufferedWriter, bufferedReader);
+//                    }
+//                }
+//            }
+//        }).start();
+//    }
 
     public void closeEverything(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader){
         try{
@@ -77,4 +77,15 @@ public class Client {
             e.printStackTrace();
         }
     }
+//
+//    public static void main(String[] args) throws IOException {
+//        Scanner sc = new Scanner(System.in);
+//        System.out.println("Enter your username: ");
+//        String username = sc.nextLine();
+//        Socket socket = new Socket("localhost", 1234);
+//        Client client = new Client(socket, username, socket.getRemoteSocketAddress().toString());
+//        client.listenForMessage();
+//
+//        client.sendMessage();
+//    }
 }
