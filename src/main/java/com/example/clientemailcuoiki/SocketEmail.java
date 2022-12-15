@@ -1,5 +1,8 @@
 package com.example.clientemailcuoiki;
 
+import com.example.clientemailcuoiki.Client.Client;
+import com.example.clientemailcuoiki.Client.Email;
+
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;

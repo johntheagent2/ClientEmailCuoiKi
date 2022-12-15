@@ -1,4 +1,4 @@
-package com.example.clientemailcuoiki;
+package com.example.clientemailcuoiki.Client;
 
 import java.io.Serializable;
 

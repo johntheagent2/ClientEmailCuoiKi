@@ -1,5 +1,7 @@
-package com.example.clientemailcuoiki;
+package com.example.clientemailcuoiki.Controller;
 
+import com.example.clientemailcuoiki.Client.Client;
+import com.example.clientemailcuoiki.Client.Email;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -13,15 +15,9 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.net.Socket;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.EventObject;
 import java.util.ResourceBundle;
 
 public class MessageSceneController implements Initializable{

@@ -1,4 +1,6 @@
-package com.example.clientemailcuoiki;
+package com.example.clientemailcuoiki.Client;
+
+import com.example.clientemailcuoiki.Constants;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;

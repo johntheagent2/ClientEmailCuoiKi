@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.DetailedMailSceneController">
+<AnchorPane prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.Controller.DetailedMailSceneController">
     <children>
         <TextArea fx:id="messageText" wrapText="true" editable="false" layoutX="6.0" layoutY="161.0" prefHeight="271.0" prefWidth="708.0" />
         <TextField fx:id="senderField" editable="false" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="237.0" />

@@ -1,5 +1,10 @@
 package com.example.clientemailcuoiki;
 
+import com.example.clientemailcuoiki.Account.Account;
+import com.example.clientemailcuoiki.Account.AccountsList;
+import com.example.clientemailcuoiki.Client.ClientHandler;
+import com.example.clientemailcuoiki.Client.Email;
+
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;

@@ -1,5 +1,6 @@
-package com.example.clientemailcuoiki;
+package com.example.clientemailcuoiki.Controller;
 
+import com.example.clientemailcuoiki.Client.Client;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.EventObject;
 import java.util.ResourceBundle;
 
 public class ComposeSceneController implements Initializable {

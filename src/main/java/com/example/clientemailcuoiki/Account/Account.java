@@ -1,4 +1,6 @@
-package com.example.clientemailcuoiki;
+package com.example.clientemailcuoiki.Account;
+import com.example.clientemailcuoiki.Client.Email;
+
 import java.util.ArrayList;
 import java.util.List;
 public class Account {
