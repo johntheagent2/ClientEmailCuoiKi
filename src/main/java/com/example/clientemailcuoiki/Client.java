@@ -1,91 +1,164 @@
 package com.example.clientemailcuoiki;
 
-import java.io.*;
-import java.net.InetSocketAddress;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class Client {
+/**
+ *
+ * @author Thanasis
+ */
+public abstract class Client {
 
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
-    private String username;
-    private String ipAddress;
+    private static Socket server = null;
+    private static DataOutputStream out;
+    private static DataInputStream in;
+    private static ObjectInputStream inObject;
+    public static boolean connectToServer() {
+        try {
+            server = new Socket("localhost", 5005);
 
-    public Client(Socket socket, String username, String ipAddress) {
-        try{
-            this.socket = socket;
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.username = username;
-            this.ipAddress = socket.getRemoteSocketAddress().toString();
-        }catch (IOException e){
-            closeEverything(socket, bufferedWriter, bufferedReader);
+            out = new DataOutputStream(server.getOutputStream());
+            in = new DataInputStream(server.getInputStream());
+            inObject = new ObjectInputStream(server.getInputStream());
+
+            return true;
+
+        } catch (IOException e) {
+            return false;
         }
     }
 
-    public void sendMessage(String messageToSend){
-        try{
-            bufferedWriter.write(username);
-            bufferedWriter.newLine();
-            bufferedWriter.flush();
+    public static boolean register(String email, String password){
+        if (server != null) {
+            try {
 
-            Scanner sc = new Scanner(System.in);
+                out.writeUTF(Constants.REGISTER);
+                out.writeUTF(email);
+                out.writeUTF(password);
 
-            while(socket.isConnected()){
-//                String messageToSend = sc.nextLine();
-                bufferedWriter.write("[" + username+ "-" + ipAddress + "]" + ": " + messageToSend);
-                bufferedWriter.newLine();
-                bufferedWriter.flush();
+                String registerResult = in.readUTF();
+
+                switch (registerResult){
+                    case Constants.REGISTERED_SUCCESFULLY:
+                        return true;
+                    case Constants.EMAIL_ALREADY_EXISTS:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-        }catch (IOException e){
-            closeEverything(socket,bufferedWriter, bufferedReader);
+        }
+        return false;
+    }
+
+
+    public static boolean login(String email, String password){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.LOGIN);
+                out.writeUTF(email);
+                out.writeUTF(password);
+
+                String loginResult = in.readUTF();
+
+                switch (loginResult){
+                    case Constants.LOGIN_CORRECT:
+                        return true;
+                    case Constants.LOGIN_WRONG:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public static boolean sendEmail(String receiver, String subject, String mainBody){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.NEW_EMAIL);
+                out.writeUTF(receiver);
+                out.writeUTF(subject);
+                out.writeUTF(mainBody);
+
+                String loginResult = in.readUTF();
+
+                switch ("107"){
+                    case Constants.EMAIL_SENT_SUCCESFULLY:
+                        return true;
+                    case Constants.RECEIVER_NOT_FOUND:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public static ArrayList<Email> showEmails(){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.SHOW_EMAILS);
+                return (ArrayList<Email>) inObject.readObject();
+
+            } catch (IOException | ClassNotFoundException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+
+    public static Email readEmail(int emailId){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.READ_EMAIL);
+                out.writeUTF(String.valueOf(emailId));
+                return (Email) inObject.readObject();
+
+            } catch (IOException | ClassNotFoundException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+
+    public static void deleteEmail(int emailId){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.DELETE_EMAIL);
+                out.writeUTF(String.valueOf(emailId));
+
+            } catch (IOException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
     }
 
-//    public void listenForMessage(){
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                String messageFromGrpChat;
-//
-//                while(socket.isConnected()){
-//                    try{
-//                        messageFromGrpChat = bufferedReader.readLine();
-//                        System.out.println(messageFromGrpChat);
-//                    }catch (IOException e){
-//                        closeEverything(socket,bufferedWriter, bufferedReader);
-//                    }
-//                }
-//            }
-//        }).start();
-//    }
-
-    public void closeEverything(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader){
-        try{
-            if(bufferedReader != null){
-                bufferedReader.close();
-            }
-            if(bufferedWriter != null){
-                bufferedWriter.close();
-            }
-            if(socket != null){
-                socket.close();
-            }
-        }catch (IOException e){
-            e.printStackTrace();
+    public static void closeConnection(){
+        try {
+            server.close();
+            in.close();
+            out.close();
+            inObject.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-//
-//    public static void main(String[] args) throws IOException {
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Enter your username: ");
-//        String username = sc.nextLine();
-//        Socket socket = new Socket("localhost", 1234);
-//        Client client = new Client(socket, username, socket.getRemoteSocketAddress().toString());
-//        client.listenForMessage();
-//
-//        client.sendMessage();
-//    }
+
 }

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.DetailedMailSceneController">
+    <children>
+        <TextArea fx:id="messageText" wrapText="true" editable="false" layoutX="6.0" layoutY="161.0" prefHeight="271.0" prefWidth="708.0" />
+        <TextField fx:id="senderField" editable="false" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="237.0" />
+        <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sender" />
+        <Text layoutX="14.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject" />
+        <TextField fx:id="subjectField" editable="false" layoutX="14.0" layoutY="101.0" prefHeight="25.0" prefWidth="697.0" />
+        <Button fx:id="backButton" layoutX="6.0" layoutY="441.0" mnemonicParsing="false" onAction="#backToMain" text="Back" />
+    </children>
+</AnchorPane>

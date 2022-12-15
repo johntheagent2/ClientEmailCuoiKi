@@ -1,90 +1,147 @@
 package com.example.clientemailcuoiki;
 
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-public class ClientHandler implements Runnable{
+public class ClientHandler implements Runnable {
 
-    public static ArrayList<ClientHandler> clientHandlers = new ArrayList<>();
+    private MailServer server;
+    private final Socket socket;
+    private ObjectOutputStream outObject;
+    private DataOutputStream out;
+    private DataInputStream in;
+    private Account loggedInAccount;
 
-    public static HashMap<String, Socket> client = new HashMap<>();
-    private Socket socket;
-    private BufferedReader bufferedReader;
-    private BufferedWriter bufferedWriter;
-    private String clientUsername;
+    public ClientHandler(MailServer server, Socket socket) {
+        this.server = server;
+        this.socket = socket;
 
-    private String receiveUser;
-
-    private String clientIpAddress;
-
-    public ClientHandler(Socket socket) {
-        try{
-            this.socket = socket;
-            this.bufferedWriter = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-            this.bufferedReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            this.clientUsername = bufferedReader.readLine();
-            this.clientIpAddress = socket.getInetAddress().toString();
-            client.put(clientUsername, socket);
-            System.out.println(client);
-            clientHandlers.add(this);
-            broadcastMessage("SERVER " + "[" + clientUsername+ "-" + clientIpAddress + "]" +" has entered the chat!");
-        }catch (IOException e){
-            closeEverything(socket, bufferedWriter, bufferedReader);
-        }
-    }
-
-    @Override
-    public void run() {
-        String messeageFromClient;
-
-        while(socket.isConnected()){
-            try{
-                messeageFromClient = bufferedReader.readLine();
-                broadcastMessage(messeageFromClient);
-            }catch (IOException e){
-                closeEverything(socket, bufferedWriter, bufferedReader);
-                break;
-            }
-        }
-    }
-
-    public void broadcastMessage(String messageToSend){
-        for(ClientHandler clientHandler: clientHandlers){
-            try{
-                if (!clientHandler.clientUsername.equals(clientUsername)) {
-                    clientHandler.bufferedWriter.write(messageToSend);
-                    clientHandler.bufferedWriter.newLine();
-                    clientHandler.bufferedWriter.flush();
-                }
-            }catch (IOException e){
-                closeEverything(socket, bufferedWriter, bufferedReader);
-            }
-        }
-    }
-
-    public void removeClientHandler(){
-        clientHandlers.remove(this);
-        broadcastMessage("SERVER:" + "[" + clientUsername+ "-" + clientIpAddress + "]" + " has left the chat");
-    }
-
-    public void closeEverything(Socket socket, BufferedWriter bufferedWriter, BufferedReader bufferedReader){
-
-        removeClientHandler();
-        try{
-            if(bufferedReader != null){
-                bufferedReader.close();
-            }
-            if(bufferedWriter != null){
-                bufferedWriter.close();
-            }
-            if(socket != null){
-                socket.close();
-            }
-        }catch (IOException e){
+        try {
+            this.outObject = new ObjectOutputStream(socket.getOutputStream());
+            this.out = new DataOutputStream(socket.getOutputStream());
+            this.in = new DataInputStream(socket.getInputStream());
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
     }
+
+    @Override
+    public void run() {
+
+        try {
+
+            int emailId;
+            Account acc;
+            Email requestedEmail;
+            String requestType, email, password;
+
+            while (true) {
+
+                requestType = this.in.readUTF();
+
+                switch (requestType) {
+
+                    case Constants.LOGIN:
+
+                        email = in.readUTF();
+                        password = in.readUTF();
+
+                        acc = server.checkAccount(email, password);
+
+                        if (acc != null) { // Account was found
+                            loggedInAccount = acc;
+                            out.writeUTF(Constants.LOGIN_CORRECT);
+                        } else {
+                            out.writeUTF(Constants.LOGIN_WRONG);
+                        }
+
+                        break;
+
+                    case Constants.REGISTER:
+
+                        email = in.readUTF();
+                        password = in.readUTF();
+
+                        acc = server.tryAddAccount(email, password);
+
+                        if (acc != null) { // Account was created
+                            loggedInAccount = acc;
+                            out.writeUTF(Constants.REGISTERED_SUCCESFULLY);
+                        } else {
+                            out.writeUTF(Constants.EMAIL_ALREADY_EXISTS);
+                        }
+
+                        break;
+
+                    case Constants.NEW_EMAIL:
+
+                        String sender = loggedInAccount.getEmail();
+                        String receiver = in.readUTF();
+                        String subject = in.readUTF();
+                        String mainBody = in.readUTF();
+
+                        boolean emailSent = server.newEmail(sender, receiver, subject, mainBody);
+
+                        if (emailSent) {
+                            out.writeUTF(Constants.EMAIL_SENT_SUCCESFULLY);
+                        } else {
+                            out.writeUTF(Constants.RECEIVER_NOT_FOUND);
+                        }
+
+                        break;
+
+                    case Constants.SHOW_EMAILS:
+
+                        List<Email> emails = server.getEmails(loggedInAccount.getEmail());
+                        outObject.reset();
+                        outObject.writeObject(emails);
+                        outObject.flush();
+
+                        break;
+
+                    case Constants.READ_EMAIL:
+
+                        emailId = Integer.parseInt(in.readUTF());
+                        requestedEmail = server.getEmail(loggedInAccount.getEmail(), emailId);
+                        outObject.reset();
+                        outObject.writeObject(requestedEmail);
+                        outObject.flush();
+
+                        break;
+
+                    case Constants.DELETE_EMAIL:
+
+                        emailId = Integer.parseInt(in.readUTF());
+                        server.deleteEmail(loggedInAccount.getEmail(), emailId);
+
+                        break;
+
+                }
+            }
+
+        } catch (Exception e) {
+
+            System.out.println(socket.getRemoteSocketAddress() + " disconnected");
+            server.unplugClientHandler(this);
+
+            // Close connection
+            try {
+                socket.close();
+                in.close();
+                out.close();
+                outObject.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ClientHandler.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }
+
 }
