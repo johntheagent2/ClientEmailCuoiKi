@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
@@ -8,15 +9,15 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="478.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.DetailedMailSceneController">
+<AnchorPane prefHeight="503.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.DetailedMailSceneController">
     <children>
-        <TextArea fx:id="messageText" editable="false" layoutX="6.0" layoutY="161.0" prefHeight="271.0" prefWidth="708.0" wrapText="true" />
         <TextField fx:id="senderField" editable="false" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="237.0" />
         <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sender" />
         <Text layoutX="14.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject" />
         <TextField fx:id="subjectField" editable="false" layoutX="14.0" layoutY="101.0" prefHeight="25.0" prefWidth="697.0" />
-        <Button fx:id="replyButton" layoutX="6.0" layoutY="441.0" mnemonicParsing="false" onAction="#replyMail" text="Reply" />
-      <Button fx:id="backButton" layoutX="133.0" layoutY="441.0" mnemonicParsing="false" onAction="#backToMain" text="Back" />
-      <Button fx:id="fowardButton" layoutX="61.0" layoutY="441.0" mnemonicParsing="false" onAction="#forwardMail" text="Forward" />
+        <Button fx:id="replyButton" layoutX="14.0" layoutY="462.0" mnemonicParsing="false" onAction="#replyMail" text="Reply" />
+      <Button fx:id="backButton" layoutX="141.0" layoutY="462.0" mnemonicParsing="false" onAction="#backToMain" text="Back" />
+      <Button fx:id="fowardButton" layoutX="69.0" layoutY="462.0" mnemonicParsing="false" onAction="#forwardMail" text="Forward" />
+      <WebView fx:id="webView" fontSmoothingType="GRAY" layoutX="6.0" layoutY="134.0" prefHeight="328.0" prefWidth="708.0" />
     </children>
 </AnchorPane>

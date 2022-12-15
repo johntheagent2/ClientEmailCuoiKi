@@ -14,5 +14,8 @@ public abstract class Constants {
     public static final String SHOW_EMAILS = "109";
     public static final String READ_EMAIL = "110";
     public static final String DELETE_EMAIL = "111";
+    public static final String CHANGE_PASSWORD = "113";
+    public static final String CHANGE_PASSWORD_SUCCESSFULLY = "114";
+    public static final String CHANGE_PASSWORD_FAILED = "115";
 
 }

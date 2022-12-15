@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -19,9 +20,10 @@ public class DetailedMailSceneController implements Initializable {
 
     Email email;
 
-    public TextArea messageText;
     public TextField senderField;
     public TextField subjectField;
+
+    public WebView webView;
 
     Stage stage;
 
@@ -39,7 +41,7 @@ public class DetailedMailSceneController implements Initializable {
         email = emailInfo;
         senderField.setText(emailInfo.getSender());
         subjectField.setText(emailInfo.getSubject());
-        messageText.setText(emailInfo.getMainBody());
+        webView.getEngine().loadContent(emailInfo.getMainBody());
     }
 
     public void backToMain(ActionEvent actionEvent) throws IOException {

@@ -75,6 +75,15 @@ public class AccountsList {
         return null;
     }
 
+    public Account changePassword(String email, String oldPassword,String newPassword){
+        for(Account account: accounts){
+            if (account.getEmail().equals(email) && account.checkPassword(oldPassword) && account.changePassword(oldPassword, newPassword)){
+                return account;
+            }
+        }
+        return null;
+    }
+
     // Checks if email is used by any account
     public boolean accountExists(String emailToCheck){
         for (Account account : accounts){

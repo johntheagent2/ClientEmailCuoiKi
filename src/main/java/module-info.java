@@ -3,6 +3,7 @@ module com.example.clientemailcuoiki {
     requires javafx.fxml;
     requires java.logging;
     requires java.sql;
+    requires javafx.web;
 
 
     opens com.example.clientemailcuoiki to javafx.fxml;

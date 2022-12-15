@@ -85,6 +85,33 @@ public abstract class Client {
         return false;
     }
 
+    public static boolean changePassword(String email, String oldPass, String newPass){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.CHANGE_PASSWORD);
+                out.writeUTF(email);
+                out.writeUTF(oldPass);
+                out.writeUTF(newPass);
+
+                String changePassResult = in.readUTF();
+
+                System.out.println(changePassResult);
+
+                switch (changePassResult){
+                    case Constants.CHANGE_PASSWORD_SUCCESSFULLY:
+                        return true;
+                    case Constants.CHANGE_PASSWORD_FAILED:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
     public static boolean sendEmail(String receiver, String subject, String mainBody){
         if (server != null) {
             try {
@@ -96,7 +123,7 @@ public abstract class Client {
 
                 String loginResult = in.readUTF();
 
-                switch ("107"){
+                switch (loginResult){
                     case Constants.EMAIL_SENT_SUCCESFULLY:
                         return true;
                     case Constants.RECEIVER_NOT_FOUND:

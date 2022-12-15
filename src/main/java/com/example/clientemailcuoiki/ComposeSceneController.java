@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.scene.web.*;
 
 import java.io.IOException;
 import java.net.URL;
@@ -22,6 +23,8 @@ public class ComposeSceneController implements Initializable {
 
     public TextField receiverField;
     public TextField subjectField;
+
+    public HTMLEditor htmlText;
 
     Stage stage;
 
@@ -40,7 +43,7 @@ public class ComposeSceneController implements Initializable {
 
         String subject = subjectField.getText();
 
-        String mainBody = messageText.getText();
+        String mainBody = htmlText.getHtmlText();
 
 
         boolean emailSent = Client.sendEmail(receiver, subject, mainBody);

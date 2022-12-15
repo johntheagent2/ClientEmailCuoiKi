@@ -293,7 +293,6 @@ public class SocketEmail {
         Client.deleteEmail(emailId);
 
         System.out.println("Email deleted succesfully");
-
     }
 
 }

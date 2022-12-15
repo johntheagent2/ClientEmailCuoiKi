@@ -2,10 +2,10 @@ package com.example.clientemailcuoiki;
 
 import com.example.clientemailcuoiki.Client.Client;
 import com.example.clientemailcuoiki.Client.Email;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -31,7 +31,7 @@ public class MessageSceneController implements Initializable{
     public TableColumn<Email, String> senderID;
     public TableColumn<Email, String> subject;
     public TableView<Email> tableViewID;
-    public TableColumn<Email, Boolean> isMailNew;
+    public TableColumn<Email, String> isMailNew;
     public Circle userDetail;
     public Button deleteMail;
 
@@ -52,6 +52,7 @@ public class MessageSceneController implements Initializable{
 
     private void showEmails() {
         ObservableList<Email> list = FXCollections.observableArrayList(Client.showEmails());
+        isMailNew.setCellValueFactory(cd -> new SimpleStringProperty(checkIfNewMail(cd.getValue().isNew())));
         senderID.setCellValueFactory(new PropertyValueFactory<Email, String>("sender"));
         subject.setCellValueFactory(new PropertyValueFactory<Email, String>("subject"));
         tableViewID.setItems(list);
@@ -64,6 +65,12 @@ public class MessageSceneController implements Initializable{
             });
             return row ;
         });
+    }
+
+    private String checkIfNewMail(Boolean isNew){
+        if(isNew){
+            return "[NEW]";
+        }return "";
     }
 
     public void composeButton(ActionEvent actionEvent) throws IOException {
@@ -103,25 +110,6 @@ public class MessageSceneController implements Initializable{
     }
 
     public void deleteMail(ActionEvent actionEvent) {
-
-//        int numOfEmails = showEmails();
-//
-//        if (numOfEmails == 0) {
-//            return;
-//        }
-//
-//        System.out.println("");
-//        System.out.println("***********************************");
-//        System.out.println("*****      Delete Email       *****");
-//        System.out.println("***********************************");
-//        System.out.println("");
-//
-//        System.out.println("Type the id of the email you want to delete");
-//
-//        int emailId = readOption(numOfEmails);
-//
-//        Client.deleteEmail(indexOfMail);
-//
-//        System.out.println("Email deleted succesfully");
+        Client.deleteEmail(indexOfMail);
     }
 }
