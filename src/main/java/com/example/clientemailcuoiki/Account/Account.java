@@ -23,6 +23,8 @@ public class Account {
         return email;
     }
 
+    public String getPassword(){return password;}
+
     public List<Email> getMailBox() {
         return mailBox;
     }

@@ -1,4 +1,4 @@
-package com.example.clientemailcuoiki.Controller;
+package com.example.clientemailcuoiki;
 
 import com.example.clientemailcuoiki.Client.Client;
 import javafx.event.ActionEvent;
@@ -36,13 +36,6 @@ public class ComposeSceneController implements Initializable {
     }
 
     public void sendMail(ActionEvent actionEvent) throws IOException {
-
-        System.out.println("");
-        System.out.println("***********************************");
-        System.out.println("*****       New Email         *****");
-        System.out.println("***********************************");
-        System.out.println("");
-
         String receiver = receiverField.getText();
 
         String subject = subjectField.getText();
@@ -68,7 +61,6 @@ public class ComposeSceneController implements Initializable {
     public void SwitchScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageScene.fxml"));
         root = loader.load();
-
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Message!");

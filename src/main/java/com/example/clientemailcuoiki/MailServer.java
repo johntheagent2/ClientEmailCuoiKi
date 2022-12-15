@@ -7,18 +7,23 @@ import com.example.clientemailcuoiki.Client.Email;
 
 import java.net.*;
 import java.io.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MailServer extends Thread {
 
     private static final int DEFAULT_PORT = 5005;
+
     private final ServerSocket serverSocket;
     private final ArrayList<ClientHandler> clientHandlers;
     private final AccountsList accounts;
 
 
-    public MailServer(int port) {
+    public MailServer(int port) throws SQLException {
 
         clientHandlers = new ArrayList<>();
         accounts = new AccountsList();
@@ -79,6 +84,7 @@ public class MailServer extends Thread {
     public Email getEmail(String account, int emailId){
         return accounts.readEmailById(account, emailId);
     }
+
 
     public void deleteEmail(String account, int emailId){
         accounts.deleteEmailById(account, emailId);

@@ -1,4 +1,4 @@
-package com.example.clientemailcuoiki.Controller;
+package com.example.clientemailcuoiki;
 
 import com.example.clientemailcuoiki.Client.Client;
 import javafx.event.ActionEvent;
@@ -18,6 +18,7 @@ import java.util.ResourceBundle;
 
 public class LoginController implements Initializable {
 
+    public Button registerButton;
     @FXML
     Button loginButton;
     @FXML
@@ -65,6 +66,17 @@ public class LoginController implements Initializable {
 
     public void SwitchScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("MessageScene.fxml"));
+        root = loader.load();
+
+        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Message!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void registerButton(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("RegisterScene.fxml"));
         root = loader.load();
 
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();

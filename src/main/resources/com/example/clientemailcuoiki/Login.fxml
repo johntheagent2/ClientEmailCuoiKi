@@ -3,14 +3,12 @@
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.Controller.LoginController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.LoginController">
    <children>
       <TextField fx:id="userID" layoutX="16.0" layoutY="100.0" prefHeight="43.0" prefWidth="568.0" promptText="Enter Username" />
       <TextField fx:id="password" layoutX="16.0" layoutY="157.0" prefHeight="43.0" prefWidth="568.0" promptText="Enter Password" />
-      <Button fx:id="loginButton" layoutX="277.0" layoutY="215.0" mnemonicParsing="false" onAction="#Login" text="Login" />
+      <Button fx:id="loginButton" layoutX="248.0" layoutY="215.0" mnemonicParsing="false" onAction="#Login" text="Login" />
+      <Button fx:id="registerButton" onAction="#registerButton" layoutX="309.0" layoutY="215.0" mnemonicParsing="false" text="Register" />
    </children>
 </AnchorPane>

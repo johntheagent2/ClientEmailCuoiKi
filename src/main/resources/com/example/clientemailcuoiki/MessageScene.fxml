@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
@@ -8,16 +9,18 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.Controller.MessageSceneController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.MessageSceneController">
    <children>
-      <Button fx:id="composeButton" layoutX="65.0" layoutY="361.0" mnemonicParsing="false" onAction="#composeButton" text="Compose" />
-      <TableView fx:id="tableViewID" layoutX="14.0" layoutY="19.0" prefHeight="336.0" prefWidth="571.0">
+      <Button fx:id="composeButton" layoutX="65.0" layoutY="441.0" mnemonicParsing="false" onAction="#composeButton" text="Compose" />
+      <TableView fx:id="tableViewID" layoutX="14.0" layoutY="99.0" prefHeight="336.0" prefWidth="693.0">
         <columns>
             <TableColumn fx:id="isMailNew" prefWidth="57.0" />
-          <TableColumn fx:id="senderID" prefWidth="259.0" text="Sender" />
-          <TableColumn fx:id="subject" prefWidth="412.0" text="Subject" />
+          <TableColumn fx:id="senderID" prefWidth="161.0" text="Sender" />
+          <TableColumn fx:id="subject" prefWidth="510.0" text="Subject" />
         </columns>
       </TableView>
-      <Button fx:id="showChosenMail" onAction="#showChosenMail" layoutX="14.0" layoutY="361.0" mnemonicParsing="false" text="Show" />
+      <Button fx:id="showChosenMail" layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#showChosenMail" text="Show" />
+      <Circle fx:id="userDetail" fill="#ab6565" layoutX="686.0" layoutY="35.0" onMouseClicked="#showDetails" radius="21.0" stroke="WHITE" strokeType="INSIDE" />
+      <Button fx:id="deleteMail" onAction="#deleteMail" layoutX="138.0" layoutY="441.0" mnemonicParsing="false" text="Delete" />
    </children>
 </AnchorPane>

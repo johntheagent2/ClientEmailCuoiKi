@@ -1,4 +1,4 @@
-package com.example.clientemailcuoiki.Controller;
+package com.example.clientemailcuoiki;
 
 import com.example.clientemailcuoiki.Client.Client;
 import com.example.clientemailcuoiki.Client.Email;
@@ -13,6 +13,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.shape.Circle;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -30,15 +32,10 @@ public class MessageSceneController implements Initializable{
     public TableColumn<Email, String> subject;
     public TableView<Email> tableViewID;
     public TableColumn<Email, Boolean> isMailNew;
+    public Circle userDetail;
+    public Button deleteMail;
 
-    @FXML
-    Button sendButton;
-
-    @FXML
-    TextArea messageText;
-
-    @FXML
-    TextField textField;
+    int indexOfMail;
 
     Stage stage;
 
@@ -62,16 +59,12 @@ public class MessageSceneController implements Initializable{
             TableRow<Email> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
                 rowData = row.getItem();
+                indexOfMail = row.getIndex();
                 System.out.println("Double click on: "+rowData.getMainBody() + " - Position: " + row.getIndex());
             });
             return row ;
         });
     }
-
-//    if (event.getClickCount() == 2 && (! row.isEmpty()) ) {
-//        rowData = row.getItem();
-//        System.out.println("Double click on: "+rowData.getMainBody() + " - Position: " + row.getIndex());
-//    }
 
     public void composeButton(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("ComposeScene.fxml"));
@@ -98,24 +91,37 @@ public class MessageSceneController implements Initializable{
         stage.show();
     }
 
-//    public void chooseEmailToRead(){
+    public void showDetails(MouseEvent mouseEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("UserDetails.fxml"));
+        root = loader.load();
+
+        stage = (Stage)((Node) userDetail.getParent()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Message!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void deleteMail(ActionEvent actionEvent) {
+
+//        int numOfEmails = showEmails();
+//
+//        if (numOfEmails == 0) {
+//            return;
+//        }
 //
 //        System.out.println("");
 //        System.out.println("***********************************");
-//        System.out.println("*****       Read Email        *****");
+//        System.out.println("*****      Delete Email       *****");
 //        System.out.println("***********************************");
 //        System.out.println("");
 //
-//        System.out.println("Type the id of the email you want to read");
+//        System.out.println("Type the id of the email you want to delete");
 //
-////        int emailId = readOption(numOfEmails);
+//        int emailId = readOption(numOfEmails);
 //
-//        Email requestedEmail = Client.readEmail(emailId);
+//        Client.deleteEmail(indexOfMail);
 //
-//        System.out.println("");
-//        System.out.println("From: " + requestedEmail.getSender());
-//        System.out.println("Subject: " + requestedEmail.getSubject());
-//        System.out.println("");
-//        System.out.println(requestedEmail.getMainBody());
-//    }
+//        System.out.println("Email deleted succesfully");
+    }
 }
