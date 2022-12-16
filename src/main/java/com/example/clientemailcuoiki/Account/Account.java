@@ -6,27 +6,48 @@ import java.util.List;
 public class Account {
 
     private final String email;
+    private final String name;
+    private final String phoneNum;
     private String password;
     private final List<Email> mailBox;
 
-    public Account(String email, String password) {
+    private final List<Account> blockedUser;
+
+    public Account(String email, String name, String phoneNum, String password) {
         this.email = email;
+        this.name = name;
+        this.phoneNum = phoneNum;
         this.password = password;
         mailBox = new ArrayList<>();
+        blockedUser = new ArrayList<>();
     }
 
     public void addEmail(Email email) {
         mailBox.add(email);
+    }
+    public void addBlockedUser(Account account) {
+        blockedUser.add(account);
     }
 
     public String getEmail() {
         return email;
     }
 
+    public String getName(){
+        return name;
+    }
+
+    public String getPhoneNum(){
+        return phoneNum;
+    }
+
     public String getPassword(){return password;}
 
     public List<Email> getMailBox() {
         return mailBox;
+    }
+    public List<Account> getBlockedUsers() {
+        return blockedUser;
     }
 
     public boolean changePassword(String oldPassword, String newPassword) {

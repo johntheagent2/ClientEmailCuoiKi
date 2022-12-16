@@ -40,9 +40,9 @@ public class MailServer extends Thread {
             System.out.println("Started server on port " + port);
 
             // Adding three test accounts
-            tryAddAccount("test1@socketmail.gr", "pass1");
-            tryAddAccount("test2@socketmail.gr", "pass2");
-            tryAddAccount("test3@socketmail.gr", "pass3");
+            tryAddAccount("test1@socketmail.gr", "pass1", "Cao Duc Phat", "0707854816");
+            tryAddAccount("test2@socketmail.gr", "pass2", "Cao Van Son", "0703001286");
+            tryAddAccount("test3@socketmail.gr", "pass3", "Lam Thinh Phat", "0903981120");
 
             // Test emails
             newEmail("test1@socketmail.gr", "test1@socketmail.gr", "Test subject (1)", "This is a test email (1)");
@@ -65,8 +65,8 @@ public class MailServer extends Thread {
     }
 
 
-    public Account tryAddAccount(String email, String password){
-        return accounts.tryAddAccount(email, password);
+    public Account tryAddAccount(String email, String password, String name, String phoneNum){
+        return accounts.tryAddAccount(email, password, name, phoneNum);
     }
 
     public Account checkAccount(String email, String password){
@@ -77,10 +77,19 @@ public class MailServer extends Thread {
         return accounts.changePassword(email, oldPassword, newPassword);
     }
 
-    public Account getEmailAccount(String email){
-        return accounts.getAccountByEmail(email);
+    public String getEmailAccount(String email){
+        return accounts.getAccountByEmailString(email);
+    }
+    public String getnameAccount(String email){
+        return accounts.getAccountNameByString(email);
+    }
+    public String getPhoneNumAccount(String email){
+        return accounts.getAccountPhoneNumByString(email);
     }
 
+    public boolean blockUser(String email, String blockedEmail){
+        return accounts.blockUserEmail(email, blockedEmail);
+    }
     public boolean newEmail(String sender, String receiver, String subject, String mainBody){
         return accounts.newEmail(sender, receiver, subject, mainBody);
     }

@@ -37,8 +37,9 @@ public class DetailedMailSceneController implements Initializable {
     }
 
     public void showDetailedEmail(Email emailInfo) {
-        System.out.print(emailInfo.getSender() + " " + emailInfo.getSubject()+ " " + emailInfo.getMainBody());
         email = emailInfo;
+        email.read();
+        emailInfo.read();
         senderField.setText(emailInfo.getSender());
         subjectField.setText(emailInfo.getSubject());
         webView.getEngine().loadContent(emailInfo.getMainBody());

@@ -61,7 +61,6 @@ public class MessageSceneController implements Initializable{
             row.setOnMouseClicked(event -> {
                 rowData = row.getItem();
                 indexOfMail = row.getIndex();
-                System.out.println("Double click on: "+rowData.getMainBody() + " - Position: " + row.getIndex());
             });
             return row ;
         });
@@ -90,7 +89,7 @@ public class MessageSceneController implements Initializable{
 
         DetailedMailSceneController detailedMail = loader.getController();
         detailedMail.showDetailedEmail(rowData);
-
+        rowData.read();
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Message!");

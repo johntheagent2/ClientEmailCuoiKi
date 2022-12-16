@@ -37,13 +37,15 @@ public abstract class Client {
         }
     }
 
-    public static boolean register(String email, String password){
+    public static boolean register(String email, String password, String name, String phoneNum){
         if (server != null) {
             try {
 
                 out.writeUTF(Constants.REGISTER);
                 out.writeUTF(email);
                 out.writeUTF(password);
+                out.writeUTF(name);
+                out.writeUTF(phoneNum);
 
                 String registerResult = in.readUTF();
 
@@ -99,7 +101,7 @@ public abstract class Client {
                 System.out.println(changePassResult);
 
                 switch (changePassResult){
-                    case Constants.CHANGE_PASSWORD_SUCCESSFULLY:
+                    case Constants.CHANGE_PASSWORD_SUCCESFULLY:
                         return true;
                     case Constants.CHANGE_PASSWORD_FAILED:
                         return false;
@@ -140,7 +142,6 @@ public abstract class Client {
     public static ArrayList<Email> showEmails(){
         if (server != null) {
             try {
-
                 out.writeUTF(Constants.SHOW_EMAILS);
                 return (ArrayList<Email>) inObject.readObject();
 
@@ -190,18 +191,65 @@ public abstract class Client {
         }
     }
 
-    public static Account requestUserDetails(){
+    public static String requestUserDetails(){
         if (server != null) {
             try {
-
                 out.writeUTF(Constants.REQUEST_USER_DETAILS);
-                return (Account) inObject.readObject();
+                return (String) inObject.readObject();
 
             } catch (IOException | ClassNotFoundException e) {
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
             }
         }
         return null;
+    }
+
+    public static String requestUserName(){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.REQUEST_USER_DETAILS_SUCCESFULLY);
+                return (String) inObject.readObject();
+
+            } catch (IOException | ClassNotFoundException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+
+    public static String requestUserPhoneNum(){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.REQUEST_USER_DETAILS_FAILED);
+                return (String) inObject.readObject();
+
+            } catch (IOException | ClassNotFoundException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+
+    public static boolean blockUserEmail(String emailBlocked){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.REQUEST_BLOCK_USER);
+                out.writeUTF(emailBlocked);
+                String blockResult = in.readUTF();
+
+                switch (blockResult){
+                    case Constants.REQUEST_BLOCK_USER_SUCCESFULLY:
+                        return true;
+                    case Constants.REQUEST_BLOCK_USER_FAILED:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 
 }

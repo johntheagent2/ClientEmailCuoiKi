@@ -20,9 +20,22 @@ public class AccountsList {
     // Sends the new email if the receiver exists
     public boolean newEmail(String sender, String receiver, String subject, String mainBody){
         Account receiverAccount = getAccountByEmail(receiver);
+        Account senderAccount = getAccountByEmail(sender);
         if (receiverAccount != null){
-            receiverAccount.addEmail(new Email(sender, receiver, subject, mainBody));
-            return true;
+            if(isBlocked(senderAccount, receiverAccount)){
+                return false;
+            }else{
+                receiverAccount.addEmail(new Email(sender, receiver, subject, mainBody));
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean isBlocked(Account sender, Account receiver){
+        for(Account i : sender.getBlockedUsers()){
+            if(i.getEmail().equals(receiver.getEmail()))
+                return true;
         }
         return false;
     }
@@ -57,9 +70,9 @@ public class AccountsList {
 
 
     // Adds account if email not already exists
-    public Account tryAddAccount(String email, String password){
+    public Account tryAddAccount(String email, String password, String name, String phoneNum){
         if (!accountExists(email)){
-            Account newAccount = new Account(email, password);
+            Account newAccount = new Account(email, name, phoneNum, password);
             accounts.add(newAccount);
             return newAccount;
         }
@@ -104,15 +117,41 @@ public class AccountsList {
         return null;
     }
 
-    public Account getAccountByAccount(String emailAccount){
+    public String getAccountByEmailString(String email){
         for (Account account : accounts){
-            if (emailAccount.equals(account.getEmail())){
-                System.out.println("email "+emailAccount);
-                return account;
+            if (email.equals(account.getEmail())){
+                return account.getEmail();
             }
         }
         return null;
     }
 
+    public String getAccountNameByString(String email){
+        for (Account account : accounts){
+            if (email.equals(account.getEmail())){
+                return account.getName();
+            }
+        }
+        return null;
+    }
+
+    public String getAccountPhoneNumByString(String email){
+        for (Account account : accounts){
+            if (email.equals(account.getEmail())){
+                return account.getPhoneNum();
+            }
+        }
+        return null;
+    }
+
+    public boolean blockUserEmail(String email, String blockEmail){
+        Account emailUser = getAccountByEmail(email);
+        Account blockedAccount = getAccountByEmail(blockEmail);
+        if (blockedAccount != null){
+            emailUser.addBlockedUser(blockedAccount);
+            return true;
+        }
+        return false;
+    }
 
 }

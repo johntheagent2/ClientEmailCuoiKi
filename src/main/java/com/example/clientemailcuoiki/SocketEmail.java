@@ -146,7 +146,7 @@ public class SocketEmail {
             System.out.println("Choose your password");
             password = scanner.nextLine();
 
-            boolean registered = Client.register(email, password);
+            boolean registered = Client.register(email, password, "", "");
 
             if (registered) {
                 System.out.println("Registered succesefully !!!");

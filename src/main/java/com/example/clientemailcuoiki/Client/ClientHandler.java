@@ -44,7 +44,7 @@ public class ClientHandler implements Runnable {
             int emailId;
             Account acc;
             Email requestedEmail;
-            String requestType, email, password;
+            String requestType, email, password, name, phoneNum;
 
             while (true) {
 
@@ -72,8 +72,10 @@ public class ClientHandler implements Runnable {
 
                         email = in.readUTF();
                         password = in.readUTF();
+                        name = in.readUTF();
+                        phoneNum = in.readUTF();
 
-                        acc = server.tryAddAccount(email, password);
+                        acc = server.tryAddAccount(email, password, name, phoneNum);
 
                         if (acc != null) { // Account was created
                             loggedInAccount = acc;
@@ -135,17 +137,38 @@ public class ClientHandler implements Runnable {
                         acc = server.changePassword(email, password, newPassword);
                         if (acc != null) { // Account was found
                             loggedInAccount = acc;
-                            out.writeUTF(Constants.CHANGE_PASSWORD_SUCCESSFULLY);
+                            out.writeUTF(Constants.CHANGE_PASSWORD_SUCCESFULLY);
                         } else {
                             out.writeUTF(Constants.CHANGE_PASSWORD_FAILED);
                         }
-
                         break;
                     case Constants.REQUEST_USER_DETAILS:
-                        Account userDetails = server.getEmailAccount(loggedInAccount.getEmail());
+                        String account = server.getEmailAccount(loggedInAccount.getEmail());
                         outObject.reset();
-                        outObject.writeObject(userDetails);
+                        outObject.writeObject(account);
                         outObject.flush();
+                        break;
+                    case Constants.REQUEST_USER_DETAILS_SUCCESFULLY:
+                        name = server.getnameAccount(loggedInAccount.getEmail());
+                        outObject.reset();
+                        outObject.writeObject(name);
+                        outObject.flush();
+                        break;
+                    case Constants.REQUEST_USER_DETAILS_FAILED:
+                        phoneNum = server.getPhoneNumAccount(loggedInAccount.getEmail());
+                        outObject.reset();
+                        outObject.writeObject(phoneNum);
+                        outObject.flush();
+                        break;
+                    case Constants.REQUEST_BLOCK_USER:
+                        email = loggedInAccount.getEmail();
+                        String blockedEmail = in.readUTF();
+                        boolean isBlocked = server.blockUser(email, blockedEmail);
+                        if (isBlocked) { // Account was found
+                            out.writeUTF(Constants.REQUEST_BLOCK_USER_SUCCESFULLY);
+                        } else {
+                            out.writeUTF(Constants.REQUEST_BLOCK_USER_FAILED);
+                        }
                         break;
                 }
             }

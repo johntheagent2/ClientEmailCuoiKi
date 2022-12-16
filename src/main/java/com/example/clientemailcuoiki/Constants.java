@@ -15,10 +15,13 @@ public abstract class Constants {
     public static final String READ_EMAIL = "110";
     public static final String DELETE_EMAIL = "111";
     public static final String CHANGE_PASSWORD = "113";
-    public static final String CHANGE_PASSWORD_SUCCESSFULLY = "114";
+    public static final String CHANGE_PASSWORD_SUCCESFULLY = "114";
     public static final String CHANGE_PASSWORD_FAILED = "115";
     public static final String REQUEST_USER_DETAILS = "116";
-    public static final String REQUEST_USER_DETAILS_SUCCESSFULLY = "116";
-    public static final String REQUEST_USER_DETAILS_FAILED = "116";
+    public static final String REQUEST_USER_DETAILS_SUCCESFULLY = "117";
+    public static final String REQUEST_USER_DETAILS_FAILED = "118";
+    public static final String REQUEST_BLOCK_USER = "119";
+    public static final String REQUEST_BLOCK_USER_SUCCESFULLY = "120";
+    public static final String REQUEST_BLOCK_USER_FAILED = "121";
 
 }
