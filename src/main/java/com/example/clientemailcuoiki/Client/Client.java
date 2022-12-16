@@ -1,5 +1,6 @@
 package com.example.clientemailcuoiki.Client;
 
+import com.example.clientemailcuoiki.Account.Account;
 import com.example.clientemailcuoiki.Constants;
 
 import java.io.DataInputStream;
@@ -85,12 +86,11 @@ public abstract class Client {
         return false;
     }
 
-    public static boolean changePassword(String email, String oldPass, String newPass){
+    public static boolean changePassword(String oldPass, String newPass){
         if (server != null) {
             try {
 
                 out.writeUTF(Constants.CHANGE_PASSWORD);
-                out.writeUTF(email);
                 out.writeUTF(oldPass);
                 out.writeUTF(newPass);
 
@@ -188,6 +188,20 @@ public abstract class Client {
         } catch (IOException ex) {
             Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static Account requestUserDetails(){
+        if (server != null) {
+            try {
+
+                out.writeUTF(Constants.REQUEST_USER_DETAILS);
+                return (Account) inObject.readObject();
+
+            } catch (IOException | ClassNotFoundException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
     }
 
 }

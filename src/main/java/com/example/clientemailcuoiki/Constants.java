@@ -17,5 +17,8 @@ public abstract class Constants {
     public static final String CHANGE_PASSWORD = "113";
     public static final String CHANGE_PASSWORD_SUCCESSFULLY = "114";
     public static final String CHANGE_PASSWORD_FAILED = "115";
+    public static final String REQUEST_USER_DETAILS = "116";
+    public static final String REQUEST_USER_DETAILS_SUCCESSFULLY = "116";
+    public static final String REQUEST_USER_DETAILS_FAILED = "116";
 
 }

@@ -128,11 +128,9 @@ public class ClientHandler implements Runnable {
                         break;
 
                     case Constants.CHANGE_PASSWORD:
-                        email = in.readUTF();
+                        email = loggedInAccount.getEmail();
                         password = in.readUTF();
                         String newPassword = in.readUTF();
-
-                        System.out.println(email + " " + password + " " + newPassword);
 
                         acc = server.changePassword(email, password, newPassword);
                         if (acc != null) { // Account was found
@@ -143,23 +141,15 @@ public class ClientHandler implements Runnable {
                         }
 
                         break;
-
+                    case Constants.REQUEST_USER_DETAILS:
+                        Account userDetails = server.getEmailAccount(loggedInAccount.getEmail());
+                        outObject.reset();
+                        outObject.writeObject(userDetails);
+                        outObject.flush();
+                        break;
                 }
             }
 
-//            email = in.readUTF();
-//            password = in.readUTF();
-//
-//            acc = server.tryAddAccount(email, password);
-//
-//            if (acc != null) { // Account was created
-//                loggedInAccount = acc;
-//                out.writeUTF(Constants.REGISTERED_SUCCESFULLY);
-//            } else {
-//                out.writeUTF(Constants.EMAIL_ALREADY_EXISTS);
-//            }
-//
-//            break;
         } catch (Exception e) {
 
             System.out.println(socket.getRemoteSocketAddress() + " disconnected");

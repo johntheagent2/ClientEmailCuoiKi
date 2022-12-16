@@ -104,5 +104,15 @@ public class AccountsList {
         return null;
     }
 
+    public Account getAccountByAccount(String emailAccount){
+        for (Account account : accounts){
+            if (emailAccount.equals(account.getEmail())){
+                System.out.println("email "+emailAccount);
+                return account;
+            }
+        }
+        return null;
+    }
+
 
 }

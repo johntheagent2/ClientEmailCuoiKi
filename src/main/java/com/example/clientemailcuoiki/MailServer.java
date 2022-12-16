@@ -77,6 +77,10 @@ public class MailServer extends Thread {
         return accounts.changePassword(email, oldPassword, newPassword);
     }
 
+    public Account getEmailAccount(String email){
+        return accounts.getAccountByEmail(email);
+    }
+
     public boolean newEmail(String sender, String receiver, String subject, String mainBody){
         return accounts.newEmail(sender, receiver, subject, mainBody);
     }
