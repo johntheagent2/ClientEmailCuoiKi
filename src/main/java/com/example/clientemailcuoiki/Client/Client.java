@@ -114,7 +114,7 @@ public abstract class Client {
         return false;
     }
 
-    public static boolean sendEmail(String receiver, String subject, String mainBody){
+    public static boolean sendEmail(String receiver, String subject, String mainBody, String date){
         if (server != null) {
             try {
 
@@ -122,6 +122,7 @@ public abstract class Client {
                 out.writeUTF(receiver);
                 out.writeUTF(subject);
                 out.writeUTF(mainBody);
+                out.writeUTF(date);
 
                 String loginResult = in.readUTF();
 
@@ -143,6 +144,19 @@ public abstract class Client {
         if (server != null) {
             try {
                 out.writeUTF(Constants.SHOW_EMAILS);
+                return (ArrayList<Email>) inObject.readObject();
+
+            } catch (IOException | ClassNotFoundException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
+    }
+
+    public static ArrayList<Email> showSentMails(){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.SHOW_SENT_EMAILS);
                 return (ArrayList<Email>) inObject.readObject();
 
             } catch (IOException | ClassNotFoundException e) {

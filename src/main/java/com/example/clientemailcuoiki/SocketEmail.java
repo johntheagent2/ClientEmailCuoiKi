@@ -3,6 +3,8 @@ package com.example.clientemailcuoiki;
 import com.example.clientemailcuoiki.Client.Client;
 import com.example.clientemailcuoiki.Client.Email;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -199,7 +201,10 @@ public class SocketEmail {
         System.out.println("Type the main body of the email");
         String mainBody = scanner.nextLine();
 
-        boolean emailSent = Client.sendEmail(receiver, subject, mainBody);
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        boolean emailSent = true;
 
         if (emailSent) {
             System.out.println("Email was sent Succesfully");

@@ -92,8 +92,9 @@ public class ClientHandler implements Runnable {
                         String receiver = in.readUTF();
                         String subject = in.readUTF();
                         String mainBody = in.readUTF();
+                        String date = in.readUTF();
 
-                        boolean emailSent = server.newEmail(sender, receiver, subject, mainBody);
+                        boolean emailSent = server.newEmail(sender, receiver, subject, mainBody, date);
 
                         if (emailSent) {
                             out.writeUTF(Constants.EMAIL_SENT_SUCCESFULLY);
@@ -108,6 +109,14 @@ public class ClientHandler implements Runnable {
                         List<Email> emails = server.getEmails(loggedInAccount.getEmail());
                         outObject.reset();
                         outObject.writeObject(emails);
+                        outObject.flush();
+
+                        break;
+                    case Constants.SHOW_SENT_EMAILS:
+
+                        List<Email> sentEmails = server.getSentMails(loggedInAccount.getEmail());
+                        outObject.reset();
+                        outObject.writeObject(sentEmails);
                         outObject.flush();
 
                         break;

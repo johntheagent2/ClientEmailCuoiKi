@@ -45,15 +45,15 @@ public class MailServer extends Thread {
             tryAddAccount("test3@socketmail.gr", "pass3", "Lam Thinh Phat", "0903981120");
 
             // Test emails
-            newEmail("test1@socketmail.gr", "test1@socketmail.gr", "Test subject (1)", "This is a test email (1)");
-            newEmail("test2@socketmail.gr", "test1@socketmail.gr", "Test subject (2)", "This is a test email (2)");
-            newEmail("test3@socketmail.gr", "test1@socketmail.gr", "Test subject (3)", "This is a test email (3)");
-            newEmail("test1@socketmail.gr", "test2@socketmail.gr", "Test subject (1)", "This is a test email (1)");
-            newEmail("test2@socketmail.gr", "test2@socketmail.gr", "Test subject (2)", "This is a test email (2)");
-            newEmail("test3@socketmail.gr", "test2@socketmail.gr", "Test subject (3)", "This is a test email (3)");
-            newEmail("test1@socketmail.gr", "test3@socketmail.gr", "Test subject (1)", "This is a test email (1)");
-            newEmail("test2@socketmail.gr", "test3@socketmail.gr", "Test subject (2)", "This is a test email (2)");
-            newEmail("test3@socketmail.gr", "test3@socketmail.gr", "Test subject (3)", "This is a test email (3)");
+            newEmail("test1@socketmail.gr", "test1@socketmail.gr", "Test subject (1)", "This is a test email (1)", "17/4/2022");
+            newEmail("test2@socketmail.gr", "test1@socketmail.gr", "Test subject (2)", "This is a test email (2)", "18/4/2022");
+            newEmail("test3@socketmail.gr", "test1@socketmail.gr", "Test subject (3)", "This is a test email (3)", "19/4/2022");
+            newEmail("test1@socketmail.gr", "test2@socketmail.gr", "Test subject (1)", "This is a test email (1)", "20/4/2022");
+            newEmail("test2@socketmail.gr", "test2@socketmail.gr", "Test subject (2)", "This is a test email (2)", "21/4/2022");
+            newEmail("test3@socketmail.gr", "test2@socketmail.gr", "Test subject (3)", "This is a test email (3)", "22/4/2022");
+            newEmail("test1@socketmail.gr", "test3@socketmail.gr", "Test subject (1)", "This is a test email (1)", "23/4/2022");
+            newEmail("test2@socketmail.gr", "test3@socketmail.gr", "Test subject (2)", "This is a test email (2)", "24/4/2022");
+            newEmail("test3@socketmail.gr", "test3@socketmail.gr", "Test subject (3)", "This is a test email (3)", "25/4/2022");
 
 
         } catch (IOException e) {
@@ -90,12 +90,16 @@ public class MailServer extends Thread {
     public boolean blockUser(String email, String blockedEmail){
         return accounts.blockUserEmail(email, blockedEmail);
     }
-    public boolean newEmail(String sender, String receiver, String subject, String mainBody){
-        return accounts.newEmail(sender, receiver, subject, mainBody);
+    public boolean newEmail(String sender, String receiver, String subject, String mainBody, String date){
+        return accounts.newEmail(sender, receiver, subject, mainBody, date);
     }
 
     public List<Email> getEmails(String email){
         return accounts.getEmails(email);
+    }
+
+    public List<Email> getSentMails(String email){
+        return accounts.getSentMails(email);
     }
 
     public Email getEmail(String account, int emailId){
