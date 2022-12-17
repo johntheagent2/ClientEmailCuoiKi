@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="132.0" prefWidth="285.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.ChangePassSceneController">
+   <children>
+      <TextField fx:id="oldPass" layoutX="100.0" layoutY="14.0" />
+      <TextField fx:id="newPass" layoutX="100.0" layoutY="57.0" />
+      <Text layoutX="16.0" layoutY="31.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Old Password" />
+      <Text layoutX="14.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="New Password" />
+      <Button layoutX="197.0" onAction="#backToDetails" layoutY="90.0" mnemonicParsing="false" text="Back" />
+      <Button layoutX="100.0" onAction="#changePass" layoutY="90.0" mnemonicParsing="false" text="Change" />
+   </children>
+</AnchorPane>

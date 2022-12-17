@@ -21,27 +21,24 @@ public class Email implements Serializable {
         this.mainBody = mainBody;
         isNew = true;
     }
-
     public Email(String sender, String receiver, String mainBody) {
         this(sender, receiver, "", mainBody);
     }
-
     public boolean isNew(){
         return isNew;
     }
-
     public String getSender(){
         return sender;
     }
-
+    public String getReceiver(){
+        return receiver;
+    }
     public String getSubject(){
         return subject;
     }
-
     public String getMainBody(){
         return mainBody;
     }
-
     public void read(){
         this.isNew = false;
     }

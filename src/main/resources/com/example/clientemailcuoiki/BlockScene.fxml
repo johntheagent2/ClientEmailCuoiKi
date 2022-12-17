@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane prefHeight="118.0" prefWidth="267.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.BlockSceneController">
+   <children>
+      <Text layoutX="20.0" layoutY="40.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter Email of the person you want to block" />
+      <TextField fx:id="blockEmailField" layoutX="20.0" layoutY="44.0" prefHeight="25.0" prefWidth="231.0" />
+      <Button fx:id="blockButton" onAction="#blockUser" layoutX="20.0" layoutY="79.0" mnemonicParsing="false" text="Proceed" />
+      <Button fx:id="backButton" onAction="#backToDetail" layoutX="84.0" layoutY="79.0" mnemonicParsing="false" text="Back" />
+   </children>
+</AnchorPane>

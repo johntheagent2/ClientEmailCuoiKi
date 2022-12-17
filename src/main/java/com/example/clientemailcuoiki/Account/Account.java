@@ -6,8 +6,8 @@ import java.util.List;
 public class Account {
 
     private final String email;
-    private final String name;
-    private final String phoneNum;
+    private String name;
+    private String phoneNum;
     private String password;
     private final List<Email> mailBox;
 
@@ -22,9 +22,18 @@ public class Account {
         blockedUser = new ArrayList<>();
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setPhoneNum(String phoneNum) {
+        this.phoneNum = phoneNum;
+    }
+
     public void addEmail(Email email) {
         mailBox.add(email);
     }
+
     public void addBlockedUser(Account account) {
         blockedUser.add(account);
     }
@@ -46,6 +55,7 @@ public class Account {
     public List<Email> getMailBox() {
         return mailBox;
     }
+
     public List<Account> getBlockedUsers() {
         return blockedUser;
     }

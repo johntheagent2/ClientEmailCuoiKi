@@ -69,7 +69,7 @@ public class MessageSceneController implements Initializable{
     private String checkIfNewMail(Boolean isNew){
         if(isNew){
             return "[NEW]";
-        }return "";
+        }return "[READ]";
     }
 
     public void composeButton(ActionEvent actionEvent) throws IOException {
@@ -83,18 +83,20 @@ public class MessageSceneController implements Initializable{
         stage.show();
     }
 
-    public void showChosenMail(ActionEvent actionEvent) throws IOException {
+    public int showChosenMail(ActionEvent actionEvent) throws IOException {
+        if(rowData == null){
+            return 0;
+        }
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailedMailScene.fxml"));
         root = loader.load();
-
         DetailedMailSceneController detailedMail = loader.getController();
         detailedMail.showDetailedEmail(rowData);
-        rowData.read();
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Message!");
         stage.setScene(scene);
         stage.show();
+        return 1;
     }
 
     public void showDetails(MouseEvent mouseEvent) throws IOException {

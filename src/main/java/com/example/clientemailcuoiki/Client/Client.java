@@ -252,4 +252,16 @@ public abstract class Client {
         return false;
     }
 
+    public static void changeUserDetails(String name, String phoneNum){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.REQUEST_UPDATE_USER_INFORMATIONS);
+                out.writeUTF(name);
+                out.writeUTF(phoneNum);
+            } catch (IOException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+    }
+
 }

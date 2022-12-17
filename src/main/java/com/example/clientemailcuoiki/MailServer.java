@@ -102,6 +102,9 @@ public class MailServer extends Thread {
         return accounts.readEmailById(account, emailId);
     }
 
+    public void changeUserDetails(String email, String name, String phoneNum){
+        accounts.updateUserDetails(email, name, phoneNum);
+    }
 
     public void deleteEmail(String account, int emailId){
         accounts.deleteEmailById(account, emailId);

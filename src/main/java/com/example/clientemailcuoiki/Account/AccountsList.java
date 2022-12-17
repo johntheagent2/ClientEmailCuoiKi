@@ -13,6 +13,7 @@ public class AccountsList {
 
     private final List<Account> accounts;
 
+
     public AccountsList(){
         accounts = new ArrayList<>();
     }
@@ -95,6 +96,14 @@ public class AccountsList {
             }
         }
         return null;
+    }
+
+    public void updateUserDetails(String email, String name, String phoneNum){
+        Account account = getAccountByEmail(email);
+        if (account != null){
+            account.setName(name);
+            account.setPhoneNum(phoneNum);
+        }
     }
 
     // Checks if email is used by any account

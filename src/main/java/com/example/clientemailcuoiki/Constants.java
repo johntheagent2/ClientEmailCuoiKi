@@ -24,4 +24,6 @@ public abstract class Constants {
     public static final String REQUEST_BLOCK_USER_SUCCESFULLY = "120";
     public static final String REQUEST_BLOCK_USER_FAILED = "121";
 
+    public static final String REQUEST_UPDATE_USER_INFORMATIONS = "122";
+
 }

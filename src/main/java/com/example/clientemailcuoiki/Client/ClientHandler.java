@@ -170,6 +170,11 @@ public class ClientHandler implements Runnable {
                             out.writeUTF(Constants.REQUEST_BLOCK_USER_FAILED);
                         }
                         break;
+                    case Constants.REQUEST_UPDATE_USER_INFORMATIONS:
+                        email = loggedInAccount.getEmail();
+                        name = in.readUTF();
+                        phoneNum = in.readUTF();
+                        server.changeUserDetails(email, name, phoneNum);
                 }
             }
 

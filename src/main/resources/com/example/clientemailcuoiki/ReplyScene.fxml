@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="634.0" prefWidth="718.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.clientemailcuoiki.ReplySceneController">
+    <children>
+        <TextField fx:id="receiver" editable="false" layoutX="14.0" layoutY="29.0" prefHeight="25.0" prefWidth="237.0" />
+        <Text layoutX="14.0" layoutY="19.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Sender" />
+        <Text layoutX="14.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Subject" />
+        <TextField fx:id="subjectField" editable="false" layoutX="14.0" layoutY="101.0" prefHeight="25.0" prefWidth="704.0" />
+        <Button fx:id="sendButton" layoutX="14.0" layoutY="594.0" mnemonicParsing="false" onAction="#replyButton" text="Reply" />
+        <Button fx:id="backButton" layoutX="92.0" layoutY="595.0" mnemonicParsing="false" onAction="#backToMain" text="Back" />
+      <HTMLEditor fx:id="HTMLText" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="14.0" layoutY="143.0" prefHeight="445.0" prefWidth="690.0" />
+    </children>
+</AnchorPane>
