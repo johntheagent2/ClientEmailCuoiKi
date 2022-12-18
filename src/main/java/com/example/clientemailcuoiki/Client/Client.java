@@ -167,16 +167,15 @@ public abstract class Client {
     }
 
 
-    public static Email readEmail(int emailId){
+    public static String readEmail(int emailId){
         if (server != null) {
             try {
 
                 out.writeUTF(Constants.READ_EMAIL);
                 out.writeUTF(String.valueOf(emailId));
-                return (Email) inObject.readObject();
+                return (String) inObject.readObject();
 
             } catch (IOException | ClassNotFoundException e) {
-                System.out.println("Cant read the email chosen");
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
             }
         }

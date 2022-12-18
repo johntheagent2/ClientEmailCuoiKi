@@ -123,9 +123,9 @@ public class ClientHandler implements Runnable {
 
                     case Constants.READ_EMAIL:
                         emailId = Integer.parseInt(in.readUTF());
-                        requestedEmail = server.getEmail(loggedInAccount.getEmail(), emailId);
+                        sender = server.getEmailInfo(loggedInAccount.getEmail(), emailId);
                         outObject.reset();
-                        outObject.writeObject(requestedEmail);
+                        outObject.writeObject(sender);
                         outObject.flush();
                         break;
 
@@ -182,6 +182,7 @@ public class ClientHandler implements Runnable {
                         name = in.readUTF();
                         phoneNum = in.readUTF();
                         server.changeUserDetails(email, name, phoneNum);
+                        break;
                 }
             }
 

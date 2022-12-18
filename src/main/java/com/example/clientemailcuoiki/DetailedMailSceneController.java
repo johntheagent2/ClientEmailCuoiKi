@@ -1,5 +1,6 @@
 package com.example.clientemailcuoiki;
 
+import com.example.clientemailcuoiki.Client.Client;
 import com.example.clientemailcuoiki.Client.Email;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -36,9 +37,9 @@ public class DetailedMailSceneController implements Initializable {
 
     }
 
-    public void showDetailedEmail(Email emailInfo) {
-        emailInfo.read();
+    public void showDetailedEmail(Email emailInfo, int index) {
         email = emailInfo;
+        String emailSender = Client.readEmail(index-1);
         senderField.setText(emailInfo.getSender());
         subjectField.setText(emailInfo.getSubject());
         webView.getEngine().loadContent(emailInfo.getMainBody());

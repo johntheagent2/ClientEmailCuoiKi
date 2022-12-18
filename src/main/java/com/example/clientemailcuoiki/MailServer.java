@@ -101,7 +101,7 @@ public class MailServer extends Thread {
         return accounts.getSentMails(email);
     }
 
-    public Email getEmail(String account, int emailId){
+    public String getEmailInfo(String account, int emailId){
         return accounts.readEmailById(account, emailId);
     }
 

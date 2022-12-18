@@ -61,11 +61,11 @@ public class AccountsList {
 
 
     // Returns the email with the given emailId for the account with the given email
-    public Email readEmailById(String email, int emailId){
+    public String readEmailById(String email, int emailId){
         Account account = getAccountByEmail(email);
         if (account != null){
-            account.getMailBox().get(emailId-1).read(); // Mark as read (-1 because id starts from 0)
-            return account.getMailBox().get(emailId-1);
+            account.getMailBox().get(emailId).read(); // Mark as read (-1 because id starts from 0)
+            return account.getMailBox().get(emailId).getSender();
         }
         return null;
     }
