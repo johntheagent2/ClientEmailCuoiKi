@@ -16,8 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ResourceBundle;
 
 public class ReplySceneController implements Initializable {
@@ -45,12 +43,10 @@ public class ReplySceneController implements Initializable {
     public void showReplyEmail(Email email){
         receiver.setText(email.getSender());
         subjectField.setText(email.getSubject());
-        String message =
-                "From:" +email.getSender()+"<br>" +
-                "Date: "+ email.getDateSent() +"<br>" +
-                "Subject: "+email.getSubject()+"<br>"+
-                        email.getMainBody() +"<br><br>" +
-                "---------- Reply message ---------<br>";
+        String message = email.getMainBody() +
+                        "\n***********************************************\n" +
+                        "******       This is a Reply Message       ******\n" +
+                        "*************************************************\n";
 
         HTMLText.setHtmlText(message);
         emailInfo = email;
@@ -58,10 +54,7 @@ public class ReplySceneController implements Initializable {
 
     public void replyButton(ActionEvent actionEvent) throws IOException {
 
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
-        LocalDateTime now = LocalDateTime.now();
-
-        boolean emailSent = Client.sendEmail(emailInfo.getSender(), emailInfo.getSubject(), HTMLText.getHtmlText(), dtf.format(now));
+        boolean emailSent = Client.sendEmail(emailInfo.getSender(), emailInfo.getSubject(), HTMLText.getHtmlText());
 
         if (emailSent) {
             System.out.println("Email was sent Successfully");

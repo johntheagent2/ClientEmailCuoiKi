@@ -21,9 +21,6 @@
       </TableView>
       <Button fx:id="showChosenMail" layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#showChosenMail" text="Show" />
       <Circle fx:id="userDetail" fill="#ab6565" layoutX="686.0" layoutY="35.0" onMouseClicked="#showDetails" radius="21.0" stroke="WHITE" strokeType="INSIDE" />
-      <Button fx:id="deleteMail" layoutX="138.0" layoutY="441.0" mnemonicParsing="false" onAction="#deleteMail" text="Delete" />
-      <Button fx:id="inboxButton" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" text="Inbox" />
-      <Button fx:id="sentButton" layoutX="65.0" layoutY="67.0" mnemonicParsing="false" onAction="#sentScene" text="Sent" />
-      <TextField fx:id="filterField" layoutX="115.0" layoutY="67.0" prefHeight="25.0" prefWidth="591.0" promptText="Search" />
+      <Button fx:id="deleteMail" onAction="#deleteMail" layoutX="138.0" layoutY="441.0" mnemonicParsing="false" text="Delete" />
    </children>
 </AnchorPane>

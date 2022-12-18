@@ -19,15 +19,14 @@ public class AccountsList {
     }
 
     // Sends the new email if the receiver exists
-    public boolean newEmail(String sender, String receiver, String subject, String mainBody, String date){
+    public boolean newEmail(String sender, String receiver, String subject, String mainBody){
         Account receiverAccount = getAccountByEmail(receiver);
         Account senderAccount = getAccountByEmail(sender);
         if (receiverAccount != null){
             if(isBlocked(senderAccount, receiverAccount)){
                 return false;
             }else{
-                receiverAccount.addEmail(new Email(sender, receiver, subject, mainBody, date));
-                senderAccount.addSentMail(new Email(sender, receiver, subject, mainBody, date));
+                receiverAccount.addEmail(new Email(sender, receiver, subject, mainBody));
                 return true;
             }
         }
@@ -47,14 +46,6 @@ public class AccountsList {
         Account account = getAccountByEmail(email);
         if (account != null){
             return account.getMailBox();
-        }
-        return null;
-    }
-
-    public List<Email> getSentMails(String email){
-        Account account = getAccountByEmail(email);
-        if (account != null){
-            return account.getSentMailBox();
         }
         return null;
     }
