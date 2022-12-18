@@ -1,14 +1,13 @@
 package com.example.clientemailcuoiki.Client;
 
+import jakarta.persistence.ManyToOne;
+
 import java.io.Serializable;
 
-/**
- *
- * @author Thanasis
- */
 public class Email implements Serializable {
 
     private boolean isNew;
+    @ManyToOne
     private String sender;
     private String receiver;
     private String subject;
@@ -42,6 +41,9 @@ public class Email implements Serializable {
     public String getDateSent(){ return dateSent;}
     public String getMainBody(){
         return mainBody;
+    }
+    public boolean getIsNew(){
+        return isNew;
     }
     public void read(){
         this.isNew = false;

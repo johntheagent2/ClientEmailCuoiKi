@@ -4,6 +4,7 @@ module com.example.clientemailcuoiki {
     requires java.logging;
     requires java.sql;
     requires javafx.web;
+    requires jakarta.persistence;
 
 
     opens com.example.clientemailcuoiki to javafx.fxml;

@@ -7,10 +7,8 @@ import com.example.clientemailcuoiki.Client.Email;
 
 import java.net.*;
 import java.io.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +20,8 @@ public class MailServer extends Thread {
     private final ArrayList<ClientHandler> clientHandlers;
     private final AccountsList accounts;
 
+    private DatabaseController conn;
+
 
     public MailServer(int port) throws SQLException {
 
@@ -31,41 +31,34 @@ public class MailServer extends Thread {
 
     }
 
-    private ServerSocket startServer(int port) {
+    private ServerSocket startServer(int port) throws SQLException {
 
         ServerSocket serverSocket = null;
+        conn = new DatabaseController();
 
         try {
             serverSocket = new ServerSocket(port);
             System.out.println("Started server on port " + port);
 
             // Adding three test accounts
-            tryAddAccount("test1@socketmail.gr", "pass1", "Cao Duc Phat", "0707854816");
-            tryAddAccount("test2@socketmail.gr", "pass2", "Cao Van Son", "0703001286");
-            tryAddAccount("test3@socketmail.gr", "pass3", "Lam Thinh Phat", "0903981120");
-
-            // Test emails
-            newEmail("test1@socketmail.gr", "test1@socketmail.gr", "Test subject (1)", "This is a test email (1)", "17/04/2022");
-            newEmail("test2@socketmail.gr", "test1@socketmail.gr", "Test subject (2)", "This is a test email (2)", "15/05/2022");
-            newEmail("test3@socketmail.gr", "test1@socketmail.gr", "Test subject (3)", "This is a test email (3)", "16/06/2022");
-            newEmail("test1@socketmail.gr", "test2@socketmail.gr", "Test subject (1)", "This is a test email (1)", "17/07/2022");
-            newEmail("test2@socketmail.gr", "test2@socketmail.gr", "Test subject (2)", "This is a test email (2)", "18/08/2022");
-            newEmail("test3@socketmail.gr", "test2@socketmail.gr", "Test subject (3)", "This is a test email (3)", "19/09/2022");
-            newEmail("test1@socketmail.gr", "test3@socketmail.gr", "Test subject (1)", "This is a test email (1)", "20/10/2022");
-            newEmail("test2@socketmail.gr", "test3@socketmail.gr", "Test subject (2)", "This is a test email (2)", "21/11/2022");
-            newEmail("test3@socketmail.gr", "test3@socketmail.gr", "Test subject (3)", "This is a test email (3)", "22/12/2022");
-
+            conn = new DatabaseController();
+            ResultSet rs = conn.getTable("accounts");
+            while(rs.next()){
+                tryAddAccount(rs.getString(1), rs.getString(4),rs.getString(2),rs.getString(3));
+            }conn.closeDatabase();
 
         } catch (IOException e) {
             e.printStackTrace();
             System.exit(1);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
 
         return serverSocket;
     }
 
 
-    public Account tryAddAccount(String email, String password, String name, String phoneNum){
+    public Account tryAddAccount(String email, String password, String name, String phoneNum) throws SQLException {
         return accounts.tryAddAccount(email, password, name, phoneNum);
     }
 
@@ -73,16 +66,18 @@ public class MailServer extends Thread {
         return accounts.checkAccount(email, password);
     }
 
-    public Account changePassword(String email, String oldPassword, String newPassword){
+    public Account changePassword(String email, String oldPassword, String newPassword) throws SQLException {
         return accounts.changePassword(email, oldPassword, newPassword);
     }
 
     public String getEmailAccount(String email){
         return accounts.getAccountByEmailString(email);
     }
+
     public String getnameAccount(String email){
         return accounts.getAccountNameByString(email);
     }
+
     public String getPhoneNumAccount(String email){
         return accounts.getAccountPhoneNumByString(email);
     }
@@ -90,13 +85,17 @@ public class MailServer extends Thread {
     public boolean blockUser(String email, String blockedEmail){
         return accounts.blockUserEmail(email, blockedEmail);
     }
-    public boolean newEmail(String sender, String receiver, String subject, String mainBody, String date){
+
+    public boolean newEmail(String sender, String receiver, String subject, String mainBody, String date) throws SQLException {
+        conn = new DatabaseController();
+        conn.addMailToDatabase(new Email(sender, receiver, subject, mainBody, date));
         return accounts.newEmail(sender, receiver, subject, mainBody, date);
     }
 
     public List<Email> getEmails(String email){
         return accounts.getEmails(email);
     }
+
     public List<Email> getSentMails(String email){
         return accounts.getSentMails(email);
     }
@@ -123,8 +122,6 @@ public class MailServer extends Thread {
     public void run() {
 
         System.out.println("Server is on");
-        System.out.println("Waiting for clients...");
-        System.out.println("");
 
         while (true) {
 
@@ -142,7 +139,7 @@ public class MailServer extends Thread {
         }
     }
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException, Exception {
+    public static void main(String[] args) throws Exception {
         Thread server = new MailServer(DEFAULT_PORT);
         server.start();
     }

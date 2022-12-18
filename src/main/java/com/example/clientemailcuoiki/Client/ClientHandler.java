@@ -187,11 +187,8 @@ public class ClientHandler implements Runnable {
             }
 
         } catch (Exception e) {
-
-            System.out.println(socket.getRemoteSocketAddress() + " disconnected");
             server.unplugClientHandler(this);
 
-            // Close connection
             try {
                 socket.close();
                 in.close();

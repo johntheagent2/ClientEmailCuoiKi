@@ -1,6 +1,4 @@
 package com.example.clientemailcuoiki.Client;
-
-import com.example.clientemailcuoiki.Account.Account;
 import com.example.clientemailcuoiki.Constants;
 
 import java.io.DataInputStream;
@@ -12,10 +10,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- *
- * @author Thanasis
- */
 public abstract class Client {
 
     private static Socket server = null;

@@ -1,17 +1,17 @@
 package com.example.clientemailcuoiki.Account;
 
 import com.example.clientemailcuoiki.Client.Email;
+import com.example.clientemailcuoiki.DatabaseController;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- * @author Thanasis
- */
 public class AccountsList {
 
     private final List<Account> accounts;
+
+    private DatabaseController conn;
 
 
     public AccountsList(){
@@ -80,9 +80,11 @@ public class AccountsList {
 
 
     // Adds account if email not already exists
-    public Account tryAddAccount(String email, String password, String name, String phoneNum){
+    public Account tryAddAccount(String email, String password, String name, String phoneNum) throws SQLException {
         if (!accountExists(email)){
             Account newAccount = new Account(email, name, phoneNum, password);
+            conn = new DatabaseController();
+            conn.addAccountToDatabase(new Account(email, name, phoneNum, password));
             accounts.add(newAccount);
             return newAccount;
         }
@@ -98,9 +100,11 @@ public class AccountsList {
         return null;
     }
 
-    public Account changePassword(String email, String oldPassword,String newPassword){
+    public Account changePassword(String email, String oldPassword,String newPassword) throws SQLException {
         for(Account account: accounts){
             if (account.getEmail().equals(email) && account.checkPassword(oldPassword) && account.changePassword(oldPassword, newPassword)){
+                conn = new DatabaseController();
+                conn.updatePasswordFromDatabase(email, newPassword);
                 return account;
             }
         }

@@ -1,18 +1,18 @@
 package com.example.clientemailcuoiki.Account;
 import com.example.clientemailcuoiki.Client.Email;
-
 import java.util.ArrayList;
 import java.util.List;
-public class Account {
 
-    private final String email;
+public class Account {
+    private String email;
     private String name;
     private String phoneNum;
     private String password;
-    private final List<Email> mailBox;
-    private final List<Email> sentMailBox;
-    private final List<Account> blockedUser;
+    private List<Email> mailBox;
+    private List<Email> sentMailBox;
+    private List<Account> blockedUser;
 
+    public Account(){}
 
     public Account(String email, String name, String phoneNum, String password) {
         this.email = email;
@@ -24,12 +24,36 @@ public class Account {
         blockedUser = new ArrayList<>();
     }
 
+    public List<Account> getBlockedUser() {
+        return blockedUser;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
 
     public void setPhoneNum(String phoneNum) {
         this.phoneNum = phoneNum;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setMailBox(List<Email> mailBox) {
+        this.mailBox = mailBox;
+    }
+
+    public void setSentMailBox(List<Email> sentMailBox) {
+        this.sentMailBox = sentMailBox;
+    }
+
+    public void setBlockedUser(List<Account> blockedUser) {
+        this.blockedUser = blockedUser;
     }
 
     public void addEmail(Email email) {
