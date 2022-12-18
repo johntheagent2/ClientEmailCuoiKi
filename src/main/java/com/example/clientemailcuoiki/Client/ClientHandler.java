@@ -122,13 +122,11 @@ public class ClientHandler implements Runnable {
                         break;
 
                     case Constants.READ_EMAIL:
-
                         emailId = Integer.parseInt(in.readUTF());
                         requestedEmail = server.getEmail(loggedInAccount.getEmail(), emailId);
                         outObject.reset();
                         outObject.writeObject(requestedEmail);
                         outObject.flush();
-
                         break;
 
                     case Constants.DELETE_EMAIL:

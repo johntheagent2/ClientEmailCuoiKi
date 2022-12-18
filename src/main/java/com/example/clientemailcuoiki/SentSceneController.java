@@ -115,7 +115,7 @@ public class SentSceneController implements Initializable {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailedMailScene.fxml"));
         root = loader.load();
         DetailedMailSceneController detailedMail = loader.getController();
-        detailedMail.showDetailedEmail(indexOfMail);
+        detailedMail.showDetailedEmail(rowData);
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Message!");

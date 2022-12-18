@@ -176,6 +176,7 @@ public abstract class Client {
                 return (Email) inObject.readObject();
 
             } catch (IOException | ClassNotFoundException e) {
+                System.out.println("Cant read the email chosen");
                 Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
             }
         }

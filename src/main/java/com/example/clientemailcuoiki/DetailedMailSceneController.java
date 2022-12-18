@@ -1,6 +1,5 @@
 package com.example.clientemailcuoiki;
 
-import com.example.clientemailcuoiki.Client.Client;
 import com.example.clientemailcuoiki.Client.Email;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +19,7 @@ import java.util.ResourceBundle;
 public class DetailedMailSceneController implements Initializable {
 
     Email email;
+
     public TextField senderField;
     public TextField subjectField;
 
@@ -36,11 +36,12 @@ public class DetailedMailSceneController implements Initializable {
 
     }
 
-    public void showDetailedEmail(int chosenMail) {
-        email = Client.readEmail(chosenMail - 1);
-        senderField.setText(email.getSender());
-        subjectField.setText(email.getSubject());
-        webView.getEngine().loadContent(email.getMainBody());
+    public void showDetailedEmail(Email emailInfo) {
+        emailInfo.read();
+        email = emailInfo;
+        senderField.setText(emailInfo.getSender());
+        subjectField.setText(emailInfo.getSubject());
+        webView.getEngine().loadContent(emailInfo.getMainBody());
     }
 
     public void backToMain(ActionEvent actionEvent) throws IOException {
