@@ -97,15 +97,13 @@ public class MailServer extends Thread {
     public List<Email> getEmails(String email){
         return accounts.getEmails(email);
     }
-
-    public Email getEmail(String account, int emailId){
-        return accounts.readEmailById(account, emailId);
-    }
-
     public List<Email> getSentMails(String email){
         return accounts.getSentMails(email);
     }
 
+    public Email getEmail(String account, int emailId){
+        return accounts.readEmailById(account, emailId);
+    }
 
     public void changeUserDetails(String email, String name, String phoneNum){
         accounts.updateUserDetails(email, name, phoneNum);

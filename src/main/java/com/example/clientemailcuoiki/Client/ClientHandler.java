@@ -119,7 +119,7 @@ public class ClientHandler implements Runnable {
                         outObject.reset();
                         outObject.writeObject(sentEmails);
                         outObject.flush();
-
+                        break;
 
                     case Constants.READ_EMAIL:
 

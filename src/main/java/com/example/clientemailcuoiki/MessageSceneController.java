@@ -63,10 +63,7 @@ public class MessageSceneController implements Initializable{
         senderID.setCellValueFactory(new PropertyValueFactory<Email, String>("sender"));
         subject.setCellValueFactory(new PropertyValueFactory<Email, String>("subject"));
 
-        listMail = new ArrayList<>();
-        listMail.addAll(Client.showEmails());
-
-        list.addAll(listMail);
+        setItemList(Client.showEmails());
 
         filterMail();
 
@@ -108,6 +105,16 @@ public class MessageSceneController implements Initializable{
         sortedData.comparatorProperty().bind(tableViewID.comparatorProperty());
 
         tableViewID.setItems(sortedData);
+    }
+
+    public void setItemList(ArrayList<Email> itemList) {
+        listMail = new ArrayList<>();
+        listMail.addAll(itemList);
+        if(itemList==null) {
+            return;
+        }
+        this.listMail = itemList;
+        list.addAll(itemList);
     }
 
 

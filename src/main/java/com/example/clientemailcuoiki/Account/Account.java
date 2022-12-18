@@ -48,10 +48,6 @@ public class Account {
         return email;
     }
 
-    public List<Email> getSentMailBox(){
-        return sentMailBox;
-    }
-
     public String getName(){
         return name;
     }
@@ -66,6 +62,9 @@ public class Account {
         return mailBox;
     }
 
+    public List<Email> getSentMailBox(){
+        return sentMailBox;
+    }
     public List<Account> getBlockedUsers() {
         return blockedUser;
     }

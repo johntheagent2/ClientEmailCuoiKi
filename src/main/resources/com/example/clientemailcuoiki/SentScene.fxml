@@ -20,5 +20,6 @@
         <Button fx:id="showChosenMail" layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#showChosenMail" text="Show" />
         <Circle fx:id="userDetail" fill="#ab6565" layoutX="686.0" layoutY="35.0" onMouseClicked="#showDetails" radius="21.0" stroke="WHITE" strokeType="INSIDE" />
       <Button fx:id="backToInbox" layoutX="69.0" layoutY="441.0" mnemonicParsing="false" onAction="#backToInbox" text="Back" />
+        <TextField fx:id="filterField" layoutX="14.0" layoutY="64.0" prefHeight="25.0" prefWidth="220.0" promptText="Search" />
     </children>
 </AnchorPane>
