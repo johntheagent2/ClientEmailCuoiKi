@@ -26,11 +26,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class MessageSceneController implements Initializable{
-
-    public TextField receiverField;
-    public TextField subjectField;
-
-    private static Socket server = null;
     public TableColumn<Email, String> senderID;
     public TableColumn<Email, String> subject;
     public TableView<Email> tableViewID;
@@ -70,7 +65,6 @@ public class MessageSceneController implements Initializable{
         tableViewID.setRowFactory(tv -> {
             TableRow<Email> row = new TableRow<>();
             row.setOnMouseClicked(event -> {
-                rowData = row.getItem();
                 indexOfMail = row.getIndex() + 1;
             });
             return row ;
@@ -142,7 +136,7 @@ public class MessageSceneController implements Initializable{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("DetailedMailScene.fxml"));
         root = loader.load();
         DetailedMailSceneController detailedMail = loader.getController();
-        detailedMail.showDetailedEmail(rowData);
+        detailedMail.showDetailedEmail(indexOfMail);
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setTitle("Message!");
@@ -168,6 +162,17 @@ public class MessageSceneController implements Initializable{
 
     public void sentScene(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("SentScene.fxml"));
+        root = loader.load();
+
+        stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setTitle("Message!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void advanceSearchScene(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AdvanceSearchScene.fxml"));
         root = loader.load();
 
         stage = (Stage)((Node) actionEvent.getSource()).getScene().getWindow();

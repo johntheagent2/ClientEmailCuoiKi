@@ -24,6 +24,7 @@
        <Button fx:id="deleteMail" layoutX="138.0" layoutY="441.0" mnemonicParsing="false" onAction="#deleteMail" text="Delete" />
        <Button fx:id="inboxButton" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" text="Inbox" />
        <Button fx:id="sentButton" layoutX="65.0" layoutY="67.0" mnemonicParsing="false" onAction="#sentScene" text="Sent" />
-       <TextField fx:id="filterField" layoutX="115.0" layoutY="67.0" prefHeight="25.0" prefWidth="591.0" promptText="Search" />
+       <TextField fx:id="filterField" layoutX="219.0" layoutY="67.0" prefHeight="25.0" prefWidth="487.0" promptText="Search" />
+      <Button fx:id="advanceSearch" onAction="#advanceSearchScene" layoutX="112.0" layoutY="67.0" mnemonicParsing="false" text="Advance Search" />
    </children>
 </AnchorPane>
