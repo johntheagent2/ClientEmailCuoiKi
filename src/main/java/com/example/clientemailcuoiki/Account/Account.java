@@ -10,8 +10,9 @@ public class Account {
     private String phoneNum;
     private String password;
     private final List<Email> mailBox;
-
+    private final List<Email> sentMailBox;
     private final List<Account> blockedUser;
+
 
     public Account(String email, String name, String phoneNum, String password) {
         this.email = email;
@@ -19,6 +20,7 @@ public class Account {
         this.phoneNum = phoneNum;
         this.password = password;
         mailBox = new ArrayList<>();
+        sentMailBox = new ArrayList<>();
         blockedUser = new ArrayList<>();
     }
 
@@ -34,12 +36,20 @@ public class Account {
         mailBox.add(email);
     }
 
+    public void addSentMail(Email email) {
+        sentMailBox.add(email);
+    }
+
     public void addBlockedUser(Account account) {
         blockedUser.add(account);
     }
 
     public String getEmail() {
         return email;
+    }
+
+    public List<Email> getSentMailBox(){
+        return sentMailBox;
     }
 
     public String getName(){

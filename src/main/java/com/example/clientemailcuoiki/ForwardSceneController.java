@@ -15,6 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -44,8 +46,12 @@ public class ForwardSceneController implements Initializable {
 
     public void showForwardMail(Email email){
         subjectField.setText(email.getSubject());
-        String message = email.getMainBody() +
-                "******       Forward from "+ email.getSender() +"      ******\n";
+        String message =
+                "---------- Forwarded message ---------<br>" +
+                        "From:" +email.getSender()+"<br>" +
+                        "Date: "+ email.getDateSent() +"<br>" +
+                        "Subject: "+email.getSubject()+"<br><br><br>" +
+                        email.getMainBody();
 
         htmlText.setHtmlText(message);
         emailInfo = email;
@@ -54,7 +60,10 @@ public class ForwardSceneController implements Initializable {
     public void forwardEmail(ActionEvent actionEvent) throws IOException {
         String receiverMail = receiver.getText();
 
-        boolean emailSent = Client.sendEmail(receiverMail, emailInfo.getSubject(), htmlText.getHtmlText());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        boolean emailSent = Client.sendEmail(receiverMail, emailInfo.getSubject(), htmlText.getHtmlText(), dtf.format(now));
 
         if (emailSent) {
             System.out.println("Email was sent Succesfully");

@@ -13,6 +13,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.Stage;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -43,10 +45,11 @@ public class ReplySceneController implements Initializable {
     public void showReplyEmail(Email email){
         receiver.setText(email.getSender());
         subjectField.setText(email.getSubject());
-        String message = email.getMainBody() +
-                        "\n***********************************************\n" +
-                        "******       This is a Reply Message       ******\n" +
-                        "*************************************************\n";
+        String message = "From:" +email.getSender()+"<br>" +
+                "Date: "+ email.getDateSent() +"<br>" +
+                "Subject: "+email.getSubject()+"<br>"+
+                email.getMainBody() +"<br><br>" +
+                "---------- Reply message ---------<br>";
 
         HTMLText.setHtmlText(message);
         emailInfo = email;
@@ -54,7 +57,10 @@ public class ReplySceneController implements Initializable {
 
     public void replyButton(ActionEvent actionEvent) throws IOException {
 
-        boolean emailSent = Client.sendEmail(emailInfo.getSender(), emailInfo.getSubject(), HTMLText.getHtmlText());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+
+        boolean emailSent = Client.sendEmail(emailInfo.getSender(), emailInfo.getSubject(), HTMLText.getHtmlText(), dtf.format(now));
 
         if (emailSent) {
             System.out.println("Email was sent Successfully");

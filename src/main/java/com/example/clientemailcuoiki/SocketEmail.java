@@ -199,7 +199,7 @@ public class SocketEmail {
         System.out.println("Type the main body of the email");
         String mainBody = scanner.nextLine();
 
-        boolean emailSent = Client.sendEmail(receiver, subject, mainBody);
+        boolean emailSent = Client.sendEmail(receiver, subject, mainBody, "");
 
         if (emailSent) {
             System.out.println("Email was sent Succesfully");

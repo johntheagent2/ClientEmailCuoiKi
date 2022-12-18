@@ -12,6 +12,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.scene.web.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,8 +47,11 @@ public class ComposeSceneController implements Initializable {
 
         String mainBody = htmlText.getHtmlText();
 
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        LocalDateTime now = LocalDateTime.now();
+        String date = dtf.format(now);
 
-        boolean emailSent = Client.sendEmail(receiver, subject, mainBody);
+        boolean emailSent = Client.sendEmail(receiver, subject, mainBody, date);
 
         if (emailSent) {
             System.out.println("Email was sent Succesfully");
