@@ -92,6 +92,26 @@ public class MailServer extends Thread {
         return accounts.newEmail(sender, receiver, subject, mainBody, date);
     }
 
+    public boolean addLabelToAccount(String email, String label){
+        return accounts.addLabelToAccount(email, label);
+    }
+
+    public boolean removeLabelFromAccount(String email, String label){
+        return accounts.removeLabelFromAccount(email, label);
+    }
+
+    public boolean addLabelToMail(String email, int emailId, String label){
+        return accounts.addLabelToMail(email, emailId, label);
+    }
+
+    public void removeLabelToMail(Email email, String label){
+        accounts.removeLabelToMail(email, label);
+    }
+
+    public List<String> getAccountLabel(String email){
+        return accounts.getAccountLabel(email);
+    }
+
     public List<Email> getEmails(String email){
         return accounts.getEmails(email);
     }
@@ -104,7 +124,7 @@ public class MailServer extends Thread {
         return accounts.readEmailById(account, emailId);
     }
 
-    public void changeUserDetails(String email, String name, String phoneNum){
+    public void changeUserDetails(String email, String name, String phoneNum) throws SQLException {
         accounts.updateUserDetails(email, name, phoneNum);
     }
 

@@ -32,6 +32,8 @@ public class MessageSceneController implements Initializable{
     public TableColumn<Email, String> isMailNew;
     public Circle userDetail;
     public Button deleteMail;
+    public ChoiceBox<String> labelBox;
+    public MenuItem addLabelToMail;
 
     int indexOfMail;
 
@@ -50,7 +52,60 @@ public class MessageSceneController implements Initializable{
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        getLabelFromAccount();
         showEmails();
+    }
+
+    private void getLabelFromAccount(){
+        ArrayList<String> labels = Client.showAccountLabels();
+        labelBox.getItems().add("All");
+        labelBox.setValue("All");
+        if(labels != null)
+            labelBox.getItems().addAll(labels);
+    }
+
+    public void addLabelToMail(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddLabelToEmail.fxml"));
+        root = loader.load();
+
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("Add lable!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void addLabelToAccount(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AddlabelScene.fxml"));
+        root = loader.load();
+        AddLabelToEmailController addLableFunction = loader.getController();
+        addLableFunction.addLabelTomail(actionEvent, indexOfMail);
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("Add lable!");
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void removeLableFromAccount(ActionEvent actionEvent) throws IOException {
+        boolean removeLabelResult = Client.removeLabel(labelBox.getSelectionModel().getSelectedItem());
+        if(removeLabelResult){
+            alert("Remove label successfully");
+        }else{
+            alert("Remove label failed");
+        }
+    }
+
+    public void alert(String alertMessage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AlertScene.fxml"));
+        root = loader.load();
+        AlertSceneController alert = loader.getController();
+        alert.showAlert(alertMessage);
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("ALERT!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     private void showEmails() {
@@ -182,4 +237,5 @@ public class MessageSceneController implements Initializable{
         stage.setScene(scene);
         stage.show();
     }
+
 }

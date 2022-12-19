@@ -111,9 +111,11 @@ public class AccountsList {
         return null;
     }
 
-    public void updateUserDetails(String email, String name, String phoneNum){
+    public void updateUserDetails(String email, String name, String phoneNum) throws SQLException {
         Account account = getAccountByEmail(email);
         if (account != null){
+            conn = new DatabaseController();
+            conn.updateUserInformationFromDatabase(email, name, phoneNum);
             account.setName(name);
             account.setPhoneNum(phoneNum);
         }
@@ -169,11 +171,47 @@ public class AccountsList {
     public boolean blockUserEmail(String email, String blockEmail){
         Account emailUser = getAccountByEmail(email);
         Account blockedAccount = getAccountByEmail(blockEmail);
-        if (blockedAccount != null){
+        if (blockedAccount != null && !emailUser.getEmail().equals(blockedAccount.getEmail())){
             emailUser.addBlockedUser(blockedAccount);
             return true;
         }
         return false;
+    }
+
+    public boolean addLabelToAccount(String email, String label){
+        Account acc = getAccountByEmail(email);
+        if(acc != null && !acc.getLabel().contains(label)){
+            acc.addLabel(label);
+            return true;
+        }return false;
+    }
+
+    public boolean removeLabelFromAccount(String email, String label){
+        Account acc = getAccountByEmail(email);
+        if(acc != null){
+            acc.removeLabel(label);
+            return true;
+        }return false;
+    }
+
+    public boolean addLabelToMail(String email, int emailId, String label){
+        Account account = getAccountByEmail(email);
+        if (account != null){
+            account.getMailBox().get(emailId).addLabel(label); // Mark as read (-1 because id starts from 0)
+            return true;
+        }
+        return false;
+    }
+
+    public void removeLabelToMail(Email email, String label){
+        email.removeLabel(label);
+    }
+
+    public List<String> getAccountLabel(String email){
+        Account acc = getAccountByEmail(email);
+        if(acc != null){
+            return acc.getLabel();
+        }return null;
     }
 
 }

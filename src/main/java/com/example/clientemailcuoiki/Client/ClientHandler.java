@@ -104,6 +104,63 @@ public class ClientHandler implements Runnable {
 
                         break;
 
+                    case Constants.ADD_LABEL:
+
+                        email = loggedInAccount.getEmail();
+                        String labelAdd = in.readUTF();
+
+                        boolean labelAdded = server.addLabelToAccount(email, labelAdd);
+
+                        if (labelAdded) {
+                            out.writeUTF(Constants.ADD_LABEL_SUCCESSFULLY);
+                        } else {
+                            out.writeUTF(Constants.ADD_LABEL_FAILED);
+                        }
+
+                        break;
+
+                    case Constants.REMOVE_LABEL:
+
+                        email = loggedInAccount.getEmail();
+                        String labelRemove = in.readUTF();
+
+                        boolean labelRemoved = server.removeLabelFromAccount(email, labelRemove);
+
+                        if (labelRemoved) {
+                            out.writeUTF(Constants.REMOVE_LABEL_SUCCESSFULLY);
+                        } else {
+                            out.writeUTF(Constants.REMOVE_LABEL_FAILED);
+                        }
+
+                        break;
+
+                    case Constants.ADD_LABEL_TO_MAIL:
+                        emailId = Integer.parseInt(in.readUTF());
+                        sender = server.getEmailInfo(loggedInAccount.getEmail(), emailId);
+                        outObject.reset();
+                        outObject.writeObject(sender);
+                        outObject.flush();
+                        break;
+
+                    case Constants.REMOVE_LABEL_TO_MAIL:
+                        emailId = Integer.parseInt(in.readUTF());
+                        String label = in.readUTF();
+                        boolean isAdded = server.addLabelToMail(loggedInAccount.getEmail(), emailId, label);
+                        outObject.reset();
+                        outObject.writeObject(isAdded);
+                        outObject.flush();
+                        break;
+
+                    case Constants.GET_ACCOUNT_LABEL:
+
+                        List<String> labelGet = server.getAccountLabel(loggedInAccount.getEmail());
+                        outObject.reset();
+                        outObject.writeObject(labelGet);
+                        outObject.flush();
+
+
+                        break;
+
                     case Constants.SHOW_EMAILS:
 
                         List<Email> emails = server.getEmails(loggedInAccount.getEmail());
@@ -112,6 +169,7 @@ public class ClientHandler implements Runnable {
                         outObject.flush();
 
                         break;
+
 
                     case Constants.SHOW_SENT_EMAILS:
 
@@ -155,7 +213,7 @@ public class ClientHandler implements Runnable {
                         outObject.writeObject(account);
                         outObject.flush();
                         break;
-                    case Constants.REQUEST_USER_DETAILS_SUCCESFULLY:
+                    case Constants.REQUEST_USER_DETAILS_SUCCESSFULLY:
                         name = server.getnameAccount(loggedInAccount.getEmail());
                         outObject.reset();
                         outObject.writeObject(name);

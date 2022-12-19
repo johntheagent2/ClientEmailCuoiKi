@@ -18,13 +18,23 @@
           <TableColumn fx:id="senderID" prefWidth="161.0" text="Sender" />
           <TableColumn fx:id="subject" prefWidth="510.0" text="Subject" />
         </columns>
+         <contextMenu>
+            <ContextMenu>
+              <items>
+                <MenuItem fx:id="addLabelToMail" onAction="#addLabelToMail" mnemonicParsing="false" text="Add Label" />
+              </items>
+            </ContextMenu>
+         </contextMenu>
       </TableView>
       <Button fx:id="showChosenMail" layoutX="14.0" layoutY="441.0" mnemonicParsing="false" onAction="#showChosenMail" text="Show" />
       <Circle fx:id="userDetail" fill="#ab6565" layoutX="686.0" layoutY="35.0" onMouseClicked="#showDetails" radius="21.0" stroke="WHITE" strokeType="INSIDE" />
        <Button fx:id="deleteMail" layoutX="138.0" layoutY="441.0" mnemonicParsing="false" onAction="#deleteMail" text="Delete" />
        <Button fx:id="inboxButton" layoutX="14.0" layoutY="67.0" mnemonicParsing="false" text="Inbox" />
        <Button fx:id="sentButton" layoutX="65.0" layoutY="67.0" mnemonicParsing="false" onAction="#sentScene" text="Sent" />
-       <TextField fx:id="filterField" layoutX="219.0" layoutY="67.0" prefHeight="25.0" prefWidth="487.0" promptText="Search" />
-      <Button fx:id="advanceSearch" onAction="#advanceSearchScene" layoutX="112.0" layoutY="67.0" mnemonicParsing="false" text="Advance Search" />
+       <TextField fx:id="filterField" layoutX="219.0" layoutY="67.0" prefHeight="25.0" prefWidth="296.0" promptText="Search" />
+      <Button fx:id="advanceSearch" layoutX="112.0" layoutY="67.0" mnemonicParsing="false" onAction="#advanceSearchScene" text="Advance Search" />
+      <ChoiceBox fx:id="labelBox" layoutX="521.0" layoutY="67.0" prefHeight="25.0" prefWidth="119.0" />
+      <Button fx:id="addLabel" layoutX="646.0" layoutY="67.0" mnemonicParsing="false" onAction="#addLabelToAccount" text="+" />
+      <Button fx:id="removeLabel" layoutX="678.0" layoutY="67.0" mnemonicParsing="false" onAction="#removeLableFromAccount" text="-" />
    </children>
 </AnchorPane>

@@ -26,9 +26,9 @@ public class DatabaseController {
             String sql = "INSERT IGNORE INTO `accounts`(`email`, `name`, `phoneNum`, `password`) VALUES (?,?,?,?)";
             PreparedStatement pstm = conn.prepareStatement(sql);
             pstm.setString(1, acc.getEmail());
-            pstm.setString(2, acc.getPhoneNum());
-            pstm.setString(3, acc.getPassword());
-            pstm.setString(4, acc.getName());
+            pstm.setString(2, acc.getName());
+            pstm.setString(3, acc.getPhoneNum());
+            pstm.setString(4, acc.getPassword());
             System.out.println(acc.getName() + " added to database!");
             pstm.execute();
         }
@@ -50,6 +50,13 @@ public class DatabaseController {
     public void updatePasswordFromDatabase(String email, String password) throws SQLException {
         String sql = "UPDATE `accounts` SET `password`='"+password+"' WHERE email = '"+email+"'";;
         System.out.println(email + " " + password);
+        PreparedStatement pstm = conn.prepareStatement(sql);
+        pstm.execute();
+    }
+
+    public void updateUserInformationFromDatabase(String email, String name, String phoneNum) throws SQLException {
+        String sql = "UPDATE `accounts` SET `name`='"+name+"', `phoneNum`='"+phoneNum+"' WHERE email = '"+email+"'";
+        System.out.println(name + " " + phoneNum);
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.execute();
     }

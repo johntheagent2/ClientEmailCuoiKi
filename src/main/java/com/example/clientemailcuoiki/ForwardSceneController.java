@@ -63,14 +63,30 @@ public class ForwardSceneController implements Initializable {
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
 
+        if(receiverMail.isEmpty()){
+            return;
+        }
+
         boolean emailSent = Client.sendEmail(receiverMail, emailInfo.getSubject(), htmlText.getHtmlText(), dtf.format(now));
 
         if (emailSent) {
-            System.out.println("Email was sent Succesfully");
+            loadAlert("Email was sent Succesfully");
             SwitchScene(actionEvent);
         } else {
-            System.out.println("The receiver does not exist. Try again.");
+            loadAlert("The receiver does not exist. Try again.");
         }
+    }
+
+    public void loadAlert(String alertMessage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AlertScene.fxml"));
+        root = loader.load();
+        AlertSceneController alert = loader.getController();
+        alert.showAlert(alertMessage);
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("ALERT!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void backToMain(ActionEvent actionEvent) throws IOException {

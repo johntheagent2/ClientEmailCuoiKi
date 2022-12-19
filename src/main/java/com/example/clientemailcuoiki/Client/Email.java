@@ -3,6 +3,7 @@ package com.example.clientemailcuoiki.Client;
 import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class Email implements Serializable {
 
@@ -13,6 +14,7 @@ public class Email implements Serializable {
     private String subject;
     private String mainBody;
     private String dateSent;
+    private List<String> label;
 
     public Email(String sender, String receiver, String subject, String mainBody, String dateSent) {
         this.sender = sender;
@@ -24,6 +26,26 @@ public class Email implements Serializable {
     }
     public Email(String sender, String receiver, String mainBody, String dateSent) {
         this(sender, receiver, "", mainBody, dateSent);
+    }
+
+    public List<String> getLabel() {
+        return label;
+    }
+
+    public void setLabel(List<String> label) {
+        this.label = label;
+    }
+
+    public void addLabel(String newLabel){
+        label.add(newLabel);
+    }
+    public void removeLabel(String removelabel){
+        for(int i =0; i < label.size(); i++){
+            if(label.get(i).equals(removelabel)){
+                label.remove(i);
+                return;
+            }
+        }
     }
 
     public boolean isNew(){

@@ -27,7 +27,7 @@ public class ChangeDetailsController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+        showCurrentDetails();
     }
 
     public void showCurrentDetails(){
@@ -46,8 +46,27 @@ public class ChangeDetailsController implements Initializable {
     public void updateDetails(ActionEvent actionEvent) throws IOException {
         String name = nameDetail.getText();
         String phoneNum = phoneNumDetail.getText();
+        if(name.isEmpty() || phoneNum.isEmpty()){
+            loadAlert("Name and phone number should not be empty!");
+            return;
+        }else if(!phoneNum.matches("^[0-9]{10}$")){
+            loadAlert("Phone Number invalid!");
+            return;
+        }
         Client.changeUserDetails(name, phoneNum);
         switchScene(actionEvent,"UserDetails.fxml");
+    }
+
+    public void loadAlert(String alertMessage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AlertScene.fxml"));
+        root = loader.load();
+        AlertSceneController alert = loader.getController();
+        alert.showAlert(alertMessage);
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("ALERT!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void switchScene(ActionEvent actionEvent, String sceneName) throws IOException {

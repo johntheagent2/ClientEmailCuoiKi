@@ -40,16 +40,36 @@ public class ChangePassSceneController implements Initializable {
         stage.show();
     }
 
-    public void changePass(ActionEvent actionEvent) {
+    public void changePass(ActionEvent actionEvent) throws IOException {
         String oldPassID = oldPass.getText();
         String newPassID = newPass.getText();
 
+        if(oldPassID.isEmpty() || newPassID.isEmpty()){
+            loadAlert("Enter old and new Password");
+            return;
+        }else if(newPassID.length() < 8){
+            loadAlert("New password must be 8 characters or longer");
+            return;
+        }
+
         boolean changed = Client.changePassword(oldPassID, newPassID);
         if (changed) {
-            System.out.println("Changed succesefully !!!");
+            loadAlert("Changed succesefully !!!");
         } else {
-            System.out.println("Changed Failed");
+            loadAlert("Changed Failed");
         }
+    }
+
+    public void loadAlert(String alertMessage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AlertScene.fxml"));
+        root = loader.load();
+        AlertSceneController alert = loader.getController();
+        alert.showAlert(alertMessage);
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("ALERT!");
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

@@ -12,6 +12,7 @@ public class Account {
     private List<Email> sentMailBox;
     private List<Account> blockedUser;
 
+    private List<String> label;
     public Account(){}
 
     public Account(String email, String name, String phoneNum, String password) {
@@ -22,6 +23,7 @@ public class Account {
         mailBox = new ArrayList<>();
         sentMailBox = new ArrayList<>();
         blockedUser = new ArrayList<>();
+        label = new ArrayList<>();
     }
 
     public List<Account> getBlockedUser() {
@@ -54,6 +56,27 @@ public class Account {
 
     public void setBlockedUser(List<Account> blockedUser) {
         this.blockedUser = blockedUser;
+    }
+
+    public List<String> getLabel() {
+        return label;
+    }
+
+    public void setLabel(List<String> label) {
+        this.label = label;
+    }
+
+    public void addLabel(String newLabel){
+        label.add(newLabel);
+    }
+
+    public void removeLabel(String removelabel){
+        for(int i =0; i < label.size(); i++){
+            if(label.get(i).equals(removelabel)){
+                label.remove(i);
+                return;
+            }
+        }
     }
 
     public void addEmail(Email email) {

@@ -39,19 +39,20 @@ public class LoginController implements Initializable {
     }
 
     public void Login(ActionEvent actionEvent) throws IOException {
-        System.out.println("");
-        System.out.println("***********************************");
-        System.out.println("*****       Login Form        *****");
-        System.out.println("***********************************");
-        System.out.println("");
-
             boolean logged = Client.login(userID.getText(), password.getText());
 
             if (logged) {
-                System.out.println("Welcome back " + userID.getText());
                 SwitchScene(actionEvent);
             } else {
-                System.out.println("Email or password is incorrect. Try again.");
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("AlertScene.fxml"));
+                root = loader.load();
+                AlertSceneController alert = loader.getController();
+                alert.showAlert("Wrong Email or Password!!!");
+                stage = new Stage();
+                scene = new Scene(root);
+                stage.setTitle("ALERT!");
+                stage.setScene(scene);
+                stage.show();
 
         }
     }

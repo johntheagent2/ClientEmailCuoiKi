@@ -34,17 +34,35 @@ public class BlockSceneController implements Initializable {
 
     public void blockUser(ActionEvent actionEvent) throws IOException {
         String blockEmail = blockEmailField.getText();
+
+        if(blockEmail.isEmpty()){
+            return;
+        }
+
         Client.blockUserEmail(blockEmail);
+
         boolean blocked = Client.blockUserEmail(blockEmail);
         if (blocked) {
-            System.out.println("Blocked successfully !!!");
+            loadAlert("Blocked successfully !!!");
         } else {
-            System.out.println("Blocked Failed");
+            loadAlert("Blocked Failed");
         }
     }
 
     public void backToDetail(ActionEvent actionEvent) throws IOException {
         switchScene(actionEvent, "UserDetails.fxml");
+    }
+
+    public void loadAlert(String alertMessage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AlertScene.fxml"));
+        root = loader.load();
+        AlertSceneController alert = loader.getController();
+        alert.showAlert(alertMessage);
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("ALERT!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void switchScene(ActionEvent actionEvent, String sceneName) throws IOException {

@@ -216,7 +216,7 @@ public abstract class Client {
     public static String requestUserName(){
         if (server != null) {
             try {
-                out.writeUTF(Constants.REQUEST_USER_DETAILS_SUCCESFULLY);
+                out.writeUTF(Constants.REQUEST_USER_DETAILS_SUCCESSFULLY);
                 return (String) inObject.readObject();
 
             } catch (IOException | ClassNotFoundException e) {
@@ -259,6 +259,83 @@ public abstract class Client {
             }
         }
         return false;
+    }
+
+    public static boolean addLabel(String label){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.ADD_LABEL);
+                out.writeUTF(label);
+                String addResult = in.readUTF();
+
+                switch (addResult){
+                    case Constants.ADD_LABEL_SUCCESSFULLY:
+                        return true;
+                    case Constants.ADD_LABEL_FAILED:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public static boolean removeLabel(String label){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.REMOVE_LABEL);
+                out.writeUTF(label);
+                String removeResult = in.readUTF();
+
+                switch (removeResult){
+                    case Constants.REMOVE_LABEL_SUCCESSFULLY:
+                        return true;
+                    case Constants.REMOVE_LABEL_FAILED:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public static boolean addLabelToMail(int mailId, String label){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.ADD_LABEL_TO_MAIL);
+                out.writeUTF(String.valueOf(mailId));
+                out.writeUTF(label);
+                String removeResult = in.readUTF();
+
+                switch (removeResult){
+                    case Constants.ADD_LABEL_TO_MAIL_SUCCESSFULLY:
+                        return true;
+                    case Constants.ADD_LABEL_TO_MAIL_FAILED:
+                        return false;
+                }
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    public static ArrayList<String> showAccountLabels(){
+        if (server != null) {
+            try {
+                out.writeUTF(Constants.GET_ACCOUNT_LABEL);
+                return (ArrayList<String>) inObject.readObject();
+
+            } catch (IOException | ClassNotFoundException e) {
+                Logger.getLogger(Client.class.getName()).log(Level.SEVERE, null, e);
+            }
+        }
+        return null;
     }
 
     public static void changeUserDetails(String name, String phoneNum){

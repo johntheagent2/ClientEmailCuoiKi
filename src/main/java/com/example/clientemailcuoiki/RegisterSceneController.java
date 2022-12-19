@@ -37,18 +37,50 @@ public class RegisterSceneController implements Initializable {
 
     }
 
-    public void registerAccount(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+    public void registerAccount(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
             String email = emailField.getText();
             String password = passwordField.getText();
             String name = nameField.getText();
             String phoneNum = phoneNumField.getText();
 
+            if(!verifyPassword(email, password, name, phoneNum)){
+                return;
+            }
+
             boolean registered = Client.register(email, password, name, phoneNum);
             if (registered) {
                 System.out.println("Registered successfully !!!");
             } else {
-                System.out.println("This email is already in use. Try again.");
+                loadAlert("This email is already in use. Try again !!!");
             }
+    }
+
+    public boolean verifyPassword(String email, String password,String name, String phoneNum) throws IOException {
+        if(!email.endsWith("@email.com")){
+            loadAlert("Your email need to end with @email.com!");
+            return false;
+        }else if(password.length() < 8){
+            loadAlert("Password need to be 8 characters or longer!");
+            return false;
+        }else if(name.isEmpty()){
+            loadAlert("Please enter your name!");
+            return false;
+        }else if(!phoneNum.matches("^[0-9]{10}$")){
+            loadAlert("Phone Number invalid!");
+            return false;
+        }return true;
+    }
+
+    public void loadAlert(String alertMessage) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("AlertScene.fxml"));
+        root = loader.load();
+        AlertSceneController alert = loader.getController();
+        alert.showAlert(alertMessage);
+        stage = new Stage();
+        scene = new Scene(root);
+        stage.setTitle("ALERT!");
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void backToLogin(ActionEvent actionEvent) throws IOException {

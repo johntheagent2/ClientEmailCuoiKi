@@ -16,7 +16,7 @@
         <Text layoutX="22.0" layoutY="178.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Email:" />
         <Text layoutX="20.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" />
         <TextArea fx:id="nameDetail" layoutX="67.0" layoutY="120.0" prefHeight="28.0" prefWidth="514.0" />
-        <TextArea fx:id="emailDetail" layoutX="67.0" layoutY="159.0" prefHeight="28.0" prefWidth="514.0" />
+        <TextArea fx:id="emailDetail" editable="false" layoutX="67.0" layoutY="159.0" prefHeight="28.0" prefWidth="514.0" />
         <Button fx:id="backButton" layoutX="203.0" layoutY="260.0" mnemonicParsing="false" onAction="#backToDetails" text="Back" />
         <TextArea fx:id="phoneNumDetail" layoutX="116.0" layoutY="200.0" prefHeight="28.0" prefWidth="465.0" />
         <Text layoutX="22.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phone Number" />
