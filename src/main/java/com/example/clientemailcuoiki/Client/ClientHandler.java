@@ -101,7 +101,6 @@ public class ClientHandler implements Runnable {
                         } else {
                             out.writeUTF(Constants.RECEIVER_NOT_FOUND);
                         }
-
                         break;
 
                     case Constants.ADD_LABEL:
@@ -116,7 +115,6 @@ public class ClientHandler implements Runnable {
                         } else {
                             out.writeUTF(Constants.ADD_LABEL_FAILED);
                         }
-
                         break;
 
                     case Constants.REMOVE_LABEL:
@@ -131,26 +129,31 @@ public class ClientHandler implements Runnable {
                         } else {
                             out.writeUTF(Constants.REMOVE_LABEL_FAILED);
                         }
-
                         break;
 
                     case Constants.ADD_LABEL_TO_MAIL:
                         email = loggedInAccount.getEmail();
                         emailId = Integer.parseInt(in.readUTF());
                         String labelAddToMail = in.readUTF();
+
                         boolean result = server.addLabelToMail(email, emailId, labelAddToMail);
-                        outObject.reset();
-                        outObject.writeObject(result);
-                        outObject.flush();
+
+                        if (result) {
+                            out.writeUTF(Constants.ADD_LABEL_TO_MAIL_SUCCESSFULLY);
+                        } else {
+                            out.writeUTF(Constants.ADD_LABEL_TO_MAIL_FAILED);
+                        }
                         break;
 
                     case Constants.REMOVE_LABEL_TO_MAIL:
                         emailId = Integer.parseInt(in.readUTF());
                         String label = in.readUTF();
                         boolean isAdded = server.addLabelToMail(loggedInAccount.getEmail(), emailId, label);
-                        outObject.reset();
-                        outObject.writeObject(isAdded);
-                        outObject.flush();
+                        if (isAdded) {
+                            out.writeUTF(Constants.REMOVE_LABEL_SUCCESSFULLY);
+                        } else {
+                            out.writeUTF(Constants.REMOVE_LABEL_FAILED);
+                        }
                         break;
 
                     case Constants.GET_ACCOUNT_LABEL:
@@ -159,8 +162,6 @@ public class ClientHandler implements Runnable {
                         outObject.reset();
                         outObject.writeObject(labelGet);
                         outObject.flush();
-
-
                         break;
 
                     case Constants.SHOW_EMAILS:
@@ -169,7 +170,6 @@ public class ClientHandler implements Runnable {
                         outObject.reset();
                         outObject.writeObject(emails);
                         outObject.flush();
-
                         break;
 
 

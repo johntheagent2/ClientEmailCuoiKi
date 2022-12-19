@@ -3,6 +3,7 @@ package com.example.clientemailcuoiki.Client;
 import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Email implements Serializable {
@@ -22,6 +23,7 @@ public class Email implements Serializable {
         this.subject = subject;
         this.mainBody = mainBody;
         this.dateSent = dateSent;
+        label = new ArrayList<>();
         isNew = true;
     }
     public Email(String sender, String receiver, String mainBody, String dateSent) {

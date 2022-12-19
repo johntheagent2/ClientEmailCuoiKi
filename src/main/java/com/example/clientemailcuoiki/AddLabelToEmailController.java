@@ -46,12 +46,8 @@ public class AddLabelToEmailController implements Initializable {
     }
 
     public void addLabelTomail(ActionEvent actionEvent) {
-        boolean resultAddLabel = Client.addLabelToMail(indexMail, selectedlabel);
-        if(resultAddLabel){
-            System.out.println("added");
-        }else{
-            System.out.println("failed");
-        }
+        boolean resultAddLabel = Client.addLabelToMail(indexMail-1, selectedlabel);
+        System.out.println(indexMail-1+ " " + selectedlabel + " " + resultAddLabel);
 
     }
 }

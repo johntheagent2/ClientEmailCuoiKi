@@ -150,6 +150,22 @@ public class MessageSceneController implements Initializable{
             });
         }));
 
+        labelBox.valueProperty().addListener(((observableValue, oldValue, newValue) -> {
+            filteredData.setPredicate(emailFilter -> {
+                if(newValue == null || newValue.isEmpty()){
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                for(String i : emailFilter.getLabel()){
+                    if(i.toLowerCase().equals(lowerCaseFilter)){
+                        return true;
+                    }else if(lowerCaseFilter.equals("all")){
+                        return true;
+                    }
+                }return false;
+            });
+        }));
+
         SortedList<Email> sortedData = new SortedList<>(filteredData);
 
         sortedData.comparatorProperty().bind(tableViewID.comparatorProperty());

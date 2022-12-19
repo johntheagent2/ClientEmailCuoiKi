@@ -33,7 +33,8 @@ public abstract class Constants {
     public static final String REMOVE_LABEL_SUCCESSFULLY = "129";
     public static final String REMOVE_LABEL_FAILED = "130";
     public static final String ADD_LABEL_TO_MAIL = "131";
-    public static final String REMOVE_LABEL_TO_MAIL= "132";
-    public static final String ADD_LABEL_TO_MAIL_SUCCESSFULLY = "133";
-    public static final String ADD_LABEL_TO_MAIL_FAILED = "134";
+    public static final String ADD_LABEL_TO_MAIL_SUCCESSFULLY = "132";
+    public static final String ADD_LABEL_TO_MAIL_FAILED = "133";
+    public static final String REMOVE_LABEL_TO_MAIL= "134";
+
 }

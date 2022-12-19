@@ -40,7 +40,6 @@ public class MailServer extends Thread {
             serverSocket = new ServerSocket(port);
             System.out.println("Started server on port " + port);
 
-            // Adding three test accounts
             conn = new DatabaseController();
             ResultSet rs = conn.getTable("accounts");
             while(rs.next()){

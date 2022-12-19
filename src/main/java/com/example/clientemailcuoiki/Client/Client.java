@@ -1,10 +1,7 @@
 package com.example.clientemailcuoiki.Client;
 import com.example.clientemailcuoiki.Constants;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -303,15 +300,15 @@ public abstract class Client {
         return false;
     }
 
-    public static boolean addLabelToMail(int mailId, String label){
+    public static boolean addLabelToMail(int mailId, String label) {
         if (server != null) {
             try {
                 out.writeUTF(Constants.ADD_LABEL_TO_MAIL);
                 out.writeUTF(String.valueOf(mailId));
                 out.writeUTF(label);
-                String addResult = in.readUTF();
-                System.out.println(addResult);
-                switch (addResult){
+
+                String result = in.readUTF();
+                switch (result) {
                     case Constants.ADD_LABEL_TO_MAIL_SUCCESSFULLY:
                         return true;
                     case Constants.ADD_LABEL_TO_MAIL_FAILED:
@@ -324,7 +321,6 @@ public abstract class Client {
         }
         return false;
     }
-
     public static ArrayList<String> showAccountLabels(){
         if (server != null) {
             try {

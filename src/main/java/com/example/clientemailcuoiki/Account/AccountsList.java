@@ -197,7 +197,7 @@ public class AccountsList {
     public boolean addLabelToMail(String email, int emailId, String label){
         Account account = getAccountByEmail(email);
         if (account != null){
-            account.getMailBox().get(emailId).addLabel(label); // Mark as read (-1 because id starts from 0)
+            account.getMailBox().get(emailId).addLabel(label);
             return true;
         }
         return false;
