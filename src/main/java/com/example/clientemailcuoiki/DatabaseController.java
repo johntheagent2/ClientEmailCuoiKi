@@ -29,7 +29,6 @@ public class DatabaseController {
             pstm.setString(2, acc.getName());
             pstm.setString(3, acc.getPhoneNum());
             pstm.setString(4, acc.getPassword());
-            System.out.println(acc.getName() + " added to database!");
             pstm.execute();
         }
     }
@@ -43,20 +42,17 @@ public class DatabaseController {
         pstm.setString(4, email.getMainBody());
         pstm.setString(5, email.getDateSent());
         pstm.setBoolean(6, email.getIsNew());
-        System.out.println(email.getSender() + " to "+ email.getReceiver() +" added to database!");
         pstm.execute();
     }
 
     public void updatePasswordFromDatabase(String email, String password) throws SQLException {
         String sql = "UPDATE `accounts` SET `password`='"+password+"' WHERE email = '"+email+"'";;
-        System.out.println(email + " " + password);
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.execute();
     }
 
     public void updateUserInformationFromDatabase(String email, String name, String phoneNum) throws SQLException {
         String sql = "UPDATE `accounts` SET `name`='"+name+"', `phoneNum`='"+phoneNum+"' WHERE email = '"+email+"'";
-        System.out.println(name + " " + phoneNum);
         PreparedStatement pstm = conn.prepareStatement(sql);
         pstm.execute();
     }
@@ -64,14 +60,12 @@ public class DatabaseController {
 
     public void deleteContentFromTable(String playlist, ArrayList<String> songs) throws SQLException {
             String sql="DELETE FROM "+ playlist + " WHERE NAME = ''";
-            System.out.println(sql);
             PreparedStatement something = conn.prepareStatement(sql);
             something.execute();
     }
 
     public void deleteTable(String playlist) throws SQLException {
         String sql="DROP TABLE "+ playlist;
-        System.out.println(sql);
         PreparedStatement something = conn.prepareStatement(sql);
         something.execute();
     }

@@ -86,8 +86,6 @@ public class MailServer extends Thread {
     }
 
     public boolean newEmail(String sender, String receiver, String subject, String mainBody, String date) throws SQLException {
-        conn = new DatabaseController();
-        conn.addMailToDatabase(new Email(sender, receiver, subject, mainBody, date));
         return accounts.newEmail(sender, receiver, subject, mainBody, date);
     }
 

@@ -175,10 +175,10 @@ public class MessageSceneController implements Initializable{
 
     public void setItemList(ArrayList<Email> itemList) {
         listMail = new ArrayList<>();
-        listMail.addAll(itemList);
         if(itemList==null) {
             return;
         }
+        listMail.addAll(itemList);
         this.listMail = itemList;
         list.addAll(itemList);
     }

@@ -64,6 +64,7 @@ public class ForwardSceneController implements Initializable {
         LocalDateTime now = LocalDateTime.now();
 
         if(receiverMail.isEmpty()){
+            loadAlert("Please enter receiver mail!");
             return;
         }
 

@@ -23,7 +23,7 @@ public class AccountsList {
         Account receiverAccount = getAccountByEmail(receiver);
         Account senderAccount = getAccountByEmail(sender);
         if (receiverAccount != null){
-            if(isBlocked(senderAccount, receiverAccount)){
+            if(isBlocked(senderAccount, receiverAccount) || isBlocked(receiverAccount, senderAccount)){
                 return false;
             }else{
                 receiverAccount.addEmail(new Email(sender, receiver, subject, mainBody, date));

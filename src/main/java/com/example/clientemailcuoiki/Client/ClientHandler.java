@@ -96,6 +96,7 @@ public class ClientHandler implements Runnable {
 
                         boolean emailSent = server.newEmail(sender, receiver, subject, mainBody, date);
 
+                        System.out.println(emailSent + " " + receiver);
                         if (emailSent) {
                             out.writeUTF(Constants.EMAIL_SENT_SUCCESFULLY);
                         } else {
