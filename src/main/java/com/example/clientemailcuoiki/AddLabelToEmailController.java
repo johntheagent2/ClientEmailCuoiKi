@@ -16,7 +16,7 @@ public class AddLabelToEmailController implements Initializable {
     public ListView<String> labelMenuInAccount;
     public Button addlabel;
     public Button removeLabel;
-
+    int indexMail;
     String selectedlabel;
 
     @Override
@@ -38,13 +38,20 @@ public class AddLabelToEmailController implements Initializable {
         }
     }
 
-    public void addLabelTomail(ActionEvent actionEvent, int index) {
-        Client.addLabelToMail(index, selectedlabel);
+    public void getData(int index) {
+        indexMail = index;
     }
 
     public void removeLabelFrommail(ActionEvent actionEvent) {
     }
 
     public void addLabelTomail(ActionEvent actionEvent) {
+        boolean resultAddLabel = Client.addLabelToMail(indexMail, selectedlabel);
+        if(resultAddLabel){
+            System.out.println("added");
+        }else{
+            System.out.println("failed");
+        }
+
     }
 }

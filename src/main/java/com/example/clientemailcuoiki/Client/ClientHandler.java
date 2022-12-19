@@ -135,10 +135,12 @@ public class ClientHandler implements Runnable {
                         break;
 
                     case Constants.ADD_LABEL_TO_MAIL:
+                        email = loggedInAccount.getEmail();
                         emailId = Integer.parseInt(in.readUTF());
-                        sender = server.getEmailInfo(loggedInAccount.getEmail(), emailId);
+                        String labelAddToMail = in.readUTF();
+                        boolean result = server.addLabelToMail(email, emailId, labelAddToMail);
                         outObject.reset();
-                        outObject.writeObject(sender);
+                        outObject.writeObject(result);
                         outObject.flush();
                         break;
 

@@ -309,9 +309,9 @@ public abstract class Client {
                 out.writeUTF(Constants.ADD_LABEL_TO_MAIL);
                 out.writeUTF(String.valueOf(mailId));
                 out.writeUTF(label);
-                String removeResult = in.readUTF();
-
-                switch (removeResult){
+                String addResult = in.readUTF();
+                System.out.println(addResult);
+                switch (addResult){
                     case Constants.ADD_LABEL_TO_MAIL_SUCCESSFULLY:
                         return true;
                     case Constants.ADD_LABEL_TO_MAIL_FAILED:

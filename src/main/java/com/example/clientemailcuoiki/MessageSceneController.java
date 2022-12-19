@@ -67,7 +67,8 @@ public class MessageSceneController implements Initializable{
     public void addLabelToMail(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddLabelToEmail.fxml"));
         root = loader.load();
-
+        AddLabelToEmailController addLableFunction = loader.getController();
+        addLableFunction.getData(indexOfMail);
         stage = new Stage();
         scene = new Scene(root);
         stage.setTitle("Add lable!");
@@ -75,11 +76,10 @@ public class MessageSceneController implements Initializable{
         stage.show();
     }
 
-    public void addLabelToAccount(ActionEvent actionEvent) throws IOException {
+    public void addLabelToAccount() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("AddlabelScene.fxml"));
         root = loader.load();
-        AddLabelToEmailController addLableFunction = loader.getController();
-        addLableFunction.addLabelTomail(actionEvent, indexOfMail);
+
         stage = new Stage();
         scene = new Scene(root);
         stage.setTitle("Add lable!");
