@@ -27,6 +27,9 @@ SET time_zone = "+00:00";
 -- Table structure for table `accounts`
 --
 
+CREATE emailsimulator;
+USE emailsimulator;
+
 CREATE TABLE `accounts` (
   `email` varchar(128) NOT NULL,
   `name` varchar(128) NOT NULL,
